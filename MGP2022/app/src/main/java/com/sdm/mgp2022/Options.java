@@ -13,12 +13,10 @@ import android.content.Intent;
 
 // Created by TanSiewLan2021
 
-public class Mainmenu extends Activity implements OnClickListener, StateBase {  //Using StateBase class
+public class Options extends Activity implements OnClickListener, StateBase {  //Using StateBase class
 
     //Define buttons
-    private Button btn_start;
-    private Button btn_options;
-    private Button btn_quit;
+    private Button btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +29,12 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.mainmenu);
+        setContentView(R.layout.option);
 
-        btn_start = (Button)findViewById(R.id.btn_start);
-        btn_start.setOnClickListener(this); //Set Listener to this button --> Start Button
+        btn_back = (Button)findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(this); //Set Listener to this button --> Back Button
 
-        btn_options = (Button)findViewById(R.id.btn_options);
-        btn_options.setOnClickListener(this); //Set Listener to this button --> Options Button
-
-        btn_quit = (Button)findViewById(R.id.btn_quit);
-        btn_quit.setOnClickListener(this); //Set Listener to this button --> Back Button
-
-		  StateManager.Instance.AddState(new Mainmenu());
+        StateManager.Instance.AddState(new Mainmenu());
     }
 
     @Override
@@ -55,20 +47,15 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
 
         Intent intent = new Intent();
 
-        if (v == btn_start)
+        /*if (v == btn_options)
         {
             // intent --> to set to another class which another page or screen that we are launching.
             intent.setClass(this, GamePage.class);
- 				 StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
+            StateManager.Instance.ChangeState("Options"); // Default is like a loading page
 
-        }
+        }*/
 
-        else if (v == btn_options)
-        {
-            intent.setClass(this, Options.class);
-        }
-
-        else if (v == btn_quit)
+        if (v == btn_back)
         {
             intent.setClass(this, Mainmenu.class);
         }
@@ -79,22 +66,22 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
     @Override
     public void Render(Canvas _canvas) {
     }
-	
+
     @Override
     public void OnEnter(SurfaceView _view) {
     }
-	
+
     @Override
     public void OnExit() {
     }
-	
+
     @Override
     public void Update(float _dt) {
     }
-	
+
     @Override
     public String GetName() {
-        return "Mainmenu";
+        return "Options";
     }
 
     @Override

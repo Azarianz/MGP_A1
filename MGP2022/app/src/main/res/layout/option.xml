@@ -27,13 +27,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="55dp"
         android:layout_marginTop="200dp"
-        android:text="Astroknight"
+        android:text="Options"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="48sp" />
 
     <Button
-        android:id="@+id/btn_start"
+        android:id="@+id/btn_sfx"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_alignParentTop="false"
@@ -42,12 +42,12 @@
         android:layout_marginTop="350dp"
         android:layout_marginRight="130dp"
         android:background="@drawable/button"
-        android:text="Start"
+        android:text="SFX"
         android:textColor="@color/white"
         android:textSize="18dp" />
 
     <Button
-        android:id="@+id/btn_options"
+        android:id="@+id/btn_music"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_alignParentTop="false"
@@ -56,12 +56,12 @@
         android:layout_marginTop="450dp"
         android:layout_marginRight="130dp"
         android:background="@drawable/button"
-        android:text="Options"
+        android:text="Music"
         android:textColor="@color/white"
         android:textSize="18dp" />
 
     <Button
-        android:id="@+id/btn_quit"
+        android:id="@+id/btn_back"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
@@ -70,7 +70,7 @@
         android:layout_marginTop="550dp"
         android:layout_marginRight="130dp"
         android:background="@drawable/button"
-        android:text="Quit"
+        android:text="Back"
         android:textSize="18dp"
         android:textColor="@color/white"/>
 
