@@ -32,33 +32,29 @@
         android:textColor="#FFFFFF"
         android:textSize="48sp" />
 
-    <Button
-        android:id="@+id/btn_sfx"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+    <TextView
+        android:id="@+id/SFX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="false"
         android:layout_alignParentTop="false"
-        android:layout_alignParentRight="false"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="350dp"
-        android:layout_marginRight="130dp"
-        android:background="@drawable/button"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="360dp"
         android:text="SFX"
-        android:textColor="@color/white"
-        android:textSize="18dp" />
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/btn_music"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+    <TextView
+        android:id="@+id/Music"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="false"
         android:layout_alignParentTop="false"
-        android:layout_alignParentRight="false"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="450dp"
-        android:layout_marginRight="130dp"
-        android:background="@drawable/button"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="460dp"
         android:text="Music"
-        android:textColor="@color/white"
-        android:textSize="18dp" />
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btn_back"
@@ -73,5 +69,27 @@
         android:text="Back"
         android:textSize="18dp"
         android:textColor="@color/white"/>
+
+    <CheckBox
+        android:id="@+id/sfx"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="350dp"
+        android:layout_marginStart="240dp"
+        android:buttonTint="@color/cardview_light_background"
+        android:text="CheckBox" />
+
+    <CheckBox
+        android:id="@+id/music"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="450dp"
+        android:layout_marginStart="240dp"
+        android:buttonTint="@color/cardview_light_background"
+        android:text="CheckBox" />
 
 </RelativeLayout>

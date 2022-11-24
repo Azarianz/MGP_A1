@@ -70,7 +70,7 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
 
         else if (v == btn_quit)
         {
-            intent.setClass(this, Mainmenu.class);
+            this.finishAffinity();
         }
         startActivity(intent);
 
