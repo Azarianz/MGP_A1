@@ -7,9 +7,11 @@ import android.view.SurfaceView;
 
 public class PlayerEntity implements EntityBase/*, Collidable*/{
 
+    private double MAX_SPEED = 6.0f;
     private Bitmap bmp = null;
     private boolean isDone = false;
-    private int xPos = 0, yPos = 0;
+    private double xPos = 0, yPos = 0;
+    private double xVel = 0, yVel = 0;
     private Sprite spriteSheet;
     private boolean isInit = false;
 
@@ -38,11 +40,22 @@ public class PlayerEntity implements EntityBase/*, Collidable*/{
         spriteSheet.Update(_dt);
 
         // Addon codes provided on week 6 slides
+    }
+
+    public void UpdateJoystick(Joystick joystick)
+    {
+        // Update velocity based on actuator of joystick
+        xVel = joystick.getActuatorX()*MAX_SPEED;
+        yVel = joystick.getActuatorY()*MAX_SPEED;
+
+        // Update position
+        xPos += xVel;
+        yPos += yVel;
 
     }
 
     public void Render(Canvas _canvas) {
-        spriteSheet.Render(_canvas, xPos + 400, yPos + 400);
+        spriteSheet.Render(_canvas, (int)xPos + 400, (int)yPos + 400);
     }
 
     public boolean IsInit() {

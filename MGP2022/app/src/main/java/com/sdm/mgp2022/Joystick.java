@@ -3,6 +3,7 @@ package com.sdm.mgp2022;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
@@ -10,11 +11,11 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 public class Joystick implements EntityBase {
 
-    private int outerCircleCenterPositionX = 275;
-    private int outerCircleCenterPositionY = 750;
-    private int innerCircleCenterPositionX = 275;
-    private int innerCircleCenterPositionY = 750;
-    private int outerCircleRadius = 60;
+    private int outerCircleCenterPositionX = 200;
+    private int outerCircleCenterPositionY = 580;
+    private int innerCircleCenterPositionX = 200;
+    private int innerCircleCenterPositionY = 580;
+    private int outerCircleRadius = 80;
     private int innerCircleRadius = 40;
     private Paint outerCirclePaint;
     private Paint innerCirclePaint;
@@ -88,29 +89,6 @@ public class Joystick implements EntityBase {
     }
 
     public void Update(float _dt) {
-        if(TouchManager.Instance.HasTouch())
-        {
-            if(TouchManager.Instance.IsDown()){
-                if(isPressed((double)TouchManager.Instance.GetPosX(), (double)TouchManager.Instance.GetPosY()))
-                {
-                    setIsPressed(true);
-                }
-            }
-
-            else if(TouchManager.Instance.IsMove()){
-                if(getIsPressed())
-                {
-                    setActuator((double)TouchManager.Instance.GetPosX(), (double)TouchManager.Instance.GetPosY());
-                }
-            }
-        }
-
-        else
-        {
-            setIsPressed(false);
-            resetActuator();
-        }
-
         updateInnerCirclePosition();
     }
 
@@ -124,8 +102,16 @@ public class Joystick implements EntityBase {
         innerCirclePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         // Draw outer circle
-        _canvas.drawCircle(100,200,60,outerCirclePaint);
-        _canvas.drawCircle(100,200,40,innerCirclePaint);
+        _canvas.drawCircle(
+                outerCircleCenterPositionX,
+                outerCircleCenterPositionY,
+                outerCircleRadius,
+                outerCirclePaint);
+        _canvas.drawCircle(
+                innerCircleCenterPositionX,
+                innerCircleCenterPositionY,
+                innerCircleRadius,
+                innerCirclePaint);
     }
 
     public boolean IsInit() { return true; }
@@ -135,7 +121,7 @@ public class Joystick implements EntityBase {
     }
 
     public int GetRenderLayer() {
-        return LayerConstants.RENDERTEXT_LAYER;
+        return LayerConstants.RENDERPAUSE_LAYER;
     }
 
     public ENTITY_TYPE GetEntityType() {

@@ -17,7 +17,7 @@
 
         <activity
             android:name=".Splashpage"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
@@ -27,7 +27,7 @@
 
         <activity
             android:name=".Mainmenu"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
@@ -37,7 +37,7 @@
 
         <activity
             android:name=".Options"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
@@ -47,7 +47,7 @@
 
         <activity
             android:name=".GamePage"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>

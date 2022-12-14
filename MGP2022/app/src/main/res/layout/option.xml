@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="-1dp"
+        android:layout_marginTop="-2dp"
         android:layout_marginEnd="0dp"
         app:srcCompat="@android:drawable/screen_background_dark" />
 
@@ -26,7 +26,7 @@
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="55dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="80dp"
         android:text="Options"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
@@ -38,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="false"
         android:layout_alignParentTop="false"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="360dp"
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="190dp"
         android:text="SFX"
         android:textColor="#FFFFFF"
         android:textSize="25sp" />
@@ -50,8 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="false"
         android:layout_alignParentTop="false"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="460dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="250dp"
         android:text="Music"
         android:textColor="#FFFFFF"
         android:textSize="25sp" />
@@ -63,8 +63,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="false"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="550dp"
-        android:layout_marginRight="130dp"
+        android:layout_marginTop="320dp"
+        android:layout_marginRight="200dp"
         android:background="@drawable/button"
         android:text="Back"
         android:textSize="18dp"
@@ -76,8 +76,8 @@
         android:scaleY="2"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="350dp"
-        android:layout_marginStart="240dp"
+        android:layout_marginStart="400dp"
+        android:layout_marginTop="180dp"
         android:buttonTint="@color/cardview_light_background" />
 
     <CheckBox
@@ -86,8 +86,8 @@
         android:scaleY="2"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="450dp"
-        android:layout_marginStart="240dp"
+        android:layout_marginStart="400dp"
+        android:layout_marginTop="240dp"
         android:buttonTint="@color/cardview_light_background" />
 
 </RelativeLayout>
