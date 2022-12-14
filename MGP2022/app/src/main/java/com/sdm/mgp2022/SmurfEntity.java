@@ -55,16 +55,16 @@ public class SmurfEntity implements EntityBase/*, Collidable*/{
     }
 
     public int GetRenderLayer() {
-        return LayerConstants.RENDERSMURF_LAYER;
+        return LayerConstants.RENDERPLAYER_LAYER;
     }
 
     public ENTITY_TYPE GetEntityType() {
-        return ENTITY_TYPE.ENT_SMURF;
+        return ENTITY_TYPE.ENT_PLAYER;
     }
 
-    public static SmurfEntity Create() {
-        SmurfEntity result = new SmurfEntity();
-        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_SMURF);
+    public static PlayerEntity Create() {
+        PlayerEntity result = new PlayerEntity();
+        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_PLAYER);
         return result;
     }
 }

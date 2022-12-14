@@ -30,6 +30,14 @@ public class TouchManager {
         return status == TouchState.DOWN;
     }
 
+    public boolean IsMove(){
+        return status == TouchState.MOVE;
+    }
+
+    public boolean IsUp(){
+        return status == TouchState.NONE;
+    }
+
     public int GetPosX(){
         return posX;
     }
@@ -46,7 +54,6 @@ public class TouchManager {
             case MotionEvent.ACTION_DOWN:
                 status = TouchState.DOWN;
                 break;
-
             case MotionEvent.ACTION_MOVE:
                 status = TouchState.MOVE;
                 break;

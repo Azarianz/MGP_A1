@@ -78,8 +78,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="350dp"
         android:layout_marginStart="240dp"
-        android:buttonTint="@color/cardview_light_background"
-        android:text="CheckBox" />
+        android:buttonTint="@color/cardview_light_background" />
 
     <CheckBox
         android:id="@+id/music"
@@ -89,7 +88,6 @@
         android:layout_height="50dp"
         android:layout_marginTop="450dp"
         android:layout_marginStart="240dp"
-        android:buttonTint="@color/cardview_light_background"
-        android:text="CheckBox" />
+        android:buttonTint="@color/cardview_light_background" />
 
 </RelativeLayout>

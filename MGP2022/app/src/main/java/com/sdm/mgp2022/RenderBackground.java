@@ -49,8 +49,8 @@ public class RenderBackground implements EntityBase {
     }
 
     public void Render(Canvas _canvas) {
-        _canvas.drawBitmap(scaledbmp, xPos, yPos, null);
-        _canvas.drawBitmap(scaledbmp, xPos + ScreenWidth, yPos, null);
+        //_canvas.drawBitmap(scaledbmp, xPos, yPos, null);
+        //_canvas.drawBitmap(scaledbmp, xPos + ScreenWidth, yPos, null);
     }
 
     public boolean IsInit() {

@@ -17,11 +17,12 @@ public class MainGameSceneState implements StateBase {
     }
 
     @Override
-    public void OnEnter(SurfaceView _view)
-    {
+    public void OnEnter(SurfaceView _view) {
         RenderBackground.Create();
-        SmurfEntity.Create();
+        //SmurfEntity.Create();
         RenderText.Create();
+        PlayerEntity.Create();
+        Joystick.Create();
         // Example to include another Renderview for Pause Button
     }
 
@@ -32,19 +33,16 @@ public class MainGameSceneState implements StateBase {
     }
 
     @Override
-    public void Render(Canvas _canvas)
-    {
+    public void Render(Canvas _canvas) {
         EntityManager.Instance.Render(_canvas);
 
     }
 
     @Override
     public void Update(float _dt) {
-
         EntityManager.Instance.Update(_dt);
 
         if (TouchManager.Instance.IsDown()) {
-			
             //Example of touch on screen in the main game to trigger back to Main menu
             //StateManager.Instance.ChangeState("Mainmenu");
         }
