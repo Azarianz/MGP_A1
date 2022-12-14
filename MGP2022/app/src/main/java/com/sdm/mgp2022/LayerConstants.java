@@ -9,6 +9,8 @@ public class LayerConstants {
     public final static int BACKGROUND_LAYER = 0;
     public final static int RENDERPLAYER_LAYER = 1;
     public final static int RENDERTEXT_LAYER = 2;
+    public final static int STAR_LAYER = 3;
+    public final static int RENDERPAUSE_LAYER = 4;
     public final static int GAMEOBJECTS_LAYER = 100;  // Example
     public final static int UI_LAYER = 1000;
 }

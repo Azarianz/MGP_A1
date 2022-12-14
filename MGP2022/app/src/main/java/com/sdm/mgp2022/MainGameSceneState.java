@@ -19,10 +19,12 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void OnEnter(SurfaceView _view) {
         RenderBackground.Create();
-        //SmurfEntity.Create();
+        SmurfEntity.Create();
         RenderText.Create();
         PlayerEntity.Create();
         Joystick.Create();
+        StarEntity.Create();
+        PauseButtonEntity.Create();
         // Example to include another Renderview for Pause Button
     }
 

@@ -26,12 +26,10 @@ public class SmurfEntity implements EntityBase/*, Collidable*/{
         //indicate what image to use
         //load the image
 
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.smurf_sprite);
-
-        spriteSheet = new Sprite(bmp, 4, 4, 16);
-
+        //bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.smurf_sprite);
+        //spriteSheet = new Sprite(bmp, 4, 4, 16);
         // spriteSheet = new Sprite(bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.smurf_sprite), 4, 4, 16);
-
+        spriteSheet = new Sprite(ResourceManager.Instance.GetBitmap(R.drawable.smurf_sprite), 4, 4, 16);
         isInit = true;
     }
 
