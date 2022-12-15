@@ -25,15 +25,20 @@ public class GameSystem {
         {
             GamePage.Instance.LoseGame();
         }
+
+        else if(score >= 100)
+        {
+            GamePage.Instance.WinGame();
+        }
     }
 
     public void Init(SurfaceView _view)
     {
 
         // We will add all of our states into the state manager here!
-        //StateManager.Instance.AddState(new LosePage());
-        //StateManager.Instance.AddState(new WinPage());
-        //StateManager.Instance.AddState(new Mainmenu());
+        StateManager.Instance.AddState(new LosePage());
+        StateManager.Instance.AddState(new WinPage());
+        StateManager.Instance.AddState(new Mainmenu());
         StateManager.Instance.AddState(new MainGameSceneState());
 
     }
@@ -58,9 +63,9 @@ public class GameSystem {
         return hp;
     }
 
-    public void AddScore()
+    public void AddScore(int val)
     {
-        score += 10;
+        score += val;
     }
 
     public int GetScore(){return score;}

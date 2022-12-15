@@ -23,7 +23,7 @@ public class MainGameSceneState implements StateBase {
     private List<EnemyEntity> enemyList = new ArrayList<EnemyEntity>();
     private EnemyEntity enemy;
 
-    float spawnTimer = 0, spawnInterval = 120;
+    float spawnTimer = 0, spawnInterval = 100;
     float shootTimer;
 
     double currentTarget = 9999;

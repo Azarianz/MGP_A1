@@ -104,9 +104,8 @@ public class BulletEntity implements EntityBase, Collidable{
 
         // Set velocity in the direction to the player
         if(targetDist > 0) { // Avoid division by zero
-            xVel = directionX * BULLET_SPEED * 0.4f;
-            yVel = directionY * BULLET_SPEED * 0.4f;
-        }
+            xVel = directionX * BULLET_SPEED * 1.4f;
+            yVel = directionY * BULLET_SPEED * 1.4f;}
         else
         {
             // No Target
@@ -190,6 +189,7 @@ public class BulletEntity implements EntityBase, Collidable{
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType()
                 && _other.GetType() !=  "Player") {  // Another entity
+            GameSystem.Instance.AddScore(10);
             SetIsDone(true);
         }
     }

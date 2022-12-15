@@ -19,7 +19,7 @@ public class PlayerEntity implements EntityBase, Collidable{
 
     private double targetX = 0, targetY = 0;
 
-    public float shootInterval = 180;
+    public float shootInterval = 140.0f;
 
     int ScreenWidth, ScreenHeight;
 
@@ -128,15 +128,16 @@ public class PlayerEntity implements EntityBase, Collidable{
 
     @Override
     public float GetRadius() {
-        return 0;
+        return 50;
     }
 
     @Override
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType()
         && _other.GetType() != "Bullet") {
-            // Another entity
+            // Collided with enemy
             GameSystem.Instance.TakeDamage();
+            GameSystem.Instance.AddScore(-5);
         }
     }
 }

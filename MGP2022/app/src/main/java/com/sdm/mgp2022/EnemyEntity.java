@@ -95,8 +95,8 @@ public class EnemyEntity implements EntityBase, Collidable{
 
         // Set velocity in the direction to the player
         if(playerDist > 0) { // Avoid division by zero
-            xVel = directionX * MAX_SPEED * 0.4f;
-            yVel = directionY * MAX_SPEED * 0.4f;
+            xVel = directionX * MAX_SPEED * 0.7f;
+            yVel = directionY * MAX_SPEED * 0.7f;
         }
         else {
             xVel = 0;
@@ -161,16 +161,14 @@ public class EnemyEntity implements EntityBase, Collidable{
 
     @Override
     public float GetRadius() {
-        return 0;
+        return 10;
     }
 
     @Override
     public void OnHit(Collidable _other) {
-        if(_other.GetType() != this.GetType()
-        && _other.GetType() == "Player")
+        if(_other.GetType() != this.GetType())
         {
-            Log.d("TAG", "OnHit: Player");
-            //SetIsDone(true);
+            SetIsDone(true);
         }
     }
 }

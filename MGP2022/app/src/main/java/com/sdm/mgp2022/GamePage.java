@@ -46,5 +46,11 @@ public class GamePage extends Activity {
         startActivity(intent);
     }
 
+    public void WinGame()
+    {
+        Intent intent = new Intent(GamePage.this, WinPage.class);
+        StateManager.Instance.ChangeState("WinPage");
+        startActivity(intent);
+    }
 }
 
