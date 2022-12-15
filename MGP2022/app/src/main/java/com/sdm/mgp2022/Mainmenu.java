@@ -60,8 +60,8 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         {
             // intent --> to set to another class which another page or screen that we are launching.
             intent.setClass(this, GamePage.class);
-            StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
 
+            StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
         }
 
         else if (v == btn_options)

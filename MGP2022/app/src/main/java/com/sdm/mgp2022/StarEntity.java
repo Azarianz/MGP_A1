@@ -88,9 +88,6 @@ public class StarEntity implements EntityBase, Collidable{
             // Move it to another random pos again
 
         }
-
-
-
     }
 
     @Override

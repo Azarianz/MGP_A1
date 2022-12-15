@@ -53,9 +53,7 @@ public class BulletEntity implements EntityBase, Collidable{
         bmp = ResourceManager.Instance.GetBitmap(R.drawable.star);
         spriteSheet = new Sprite(ResourceManager.Instance.GetBitmap(R.drawable.star), 4, 4, 16);
 
-
         isInit = true;
-
         //_vibrator = (Vibrator)_view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
     }
 
@@ -88,12 +86,12 @@ public class BulletEntity implements EntityBase, Collidable{
         //   Update velocity of the enemy so that the velocity is in the direction of the player
         // =========================================================================================
         // Calculate vector from enemy to player (in x and y)
-        targetXDist = targetX - GetPosX();
-        targetYDist = targetY - GetPosY();
+        targetXDist = targetX - xPos;
+        targetYDist = targetY - yPos;
 
         // Calculate (absolute) distance between enemy (this) and player
         targetDist = Math.sqrt(
-                Math.pow(targetX - GetPosX(), 2) + Math.pow(targetY - GetPosY(), 2));
+                Math.pow(targetX - xPos, 2) + Math.pow(targetY - yPos, 2));
 
         // Calculate direction from enemy to player
         directionX = targetXDist/targetDist;
@@ -120,13 +118,13 @@ public class BulletEntity implements EntityBase, Collidable{
         int lifeTime = 30;
 
         Matrix transform = new Matrix();
-        transform.postTranslate(-bmp.getWidth() * 0.5f, -bmp.getHeight() * 0.5f);
+        //transform.postTranslate(-bmp.getWidth() * 0.5f, -bmp.getHeight() * 0.5f);
 
-        transform.postTranslate(xPos - 100, yPos - 100);
+        transform.postTranslate(xPos, yPos);
 
-        float scaleFactor = 0.5f + Math.abs((float) Math.sin(lifeTime));
+        //float scaleFactor = 0.5f + Math.abs((float) Math.sin(lifeTime));
 
-        transform.postScale(scaleFactor,scaleFactor);
+        //transform.postScale(scaleFactor,scaleFactor);
 
         _canvas.drawBitmap(bmp, transform, null);
     }
@@ -161,7 +159,7 @@ public class BulletEntity implements EntityBase, Collidable{
 
     @Override
     public String GetType() {
-        return "StarEntity";
+        return "BulletEntity";
     }
 
     @Override

@@ -111,7 +111,7 @@ public class PlayerEntity implements EntityBase, Collidable{
 
     @Override
     public String GetType() {
-        return "Player";
+        return "PlayerEntity";
     }
 
     @Override
