@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.SurfaceView;
 
-public class PlayerEntity implements EntityBase/*, Collidable*/{
+public class PlayerEntity implements EntityBase, Collidable{
 
     private double MAX_SPEED = 6.0f;
     private Bitmap bmp = null;
@@ -51,11 +51,10 @@ public class PlayerEntity implements EntityBase/*, Collidable*/{
         // Update position
         xPos += xVel;
         yPos += yVel;
-
     }
 
     public void Render(Canvas _canvas) {
-        spriteSheet.Render(_canvas, (int)xPos + 400, (int)yPos + 400);
+        spriteSheet.Render(_canvas, (int)xPos, (int)yPos);
     }
 
     public boolean IsInit() {
@@ -78,5 +77,30 @@ public class PlayerEntity implements EntityBase/*, Collidable*/{
         PlayerEntity result = new PlayerEntity();
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_PLAYER);
         return result;
+    }
+
+    @Override
+    public String GetType() {
+        return "Player";
+    }
+
+    @Override
+    public float GetPosX() {
+        return (float)xPos;
+    }
+
+    @Override
+    public float GetPosY() {
+        return (float)yPos;
+    }
+
+    @Override
+    public float GetRadius() {
+        return 0;
+    }
+
+    @Override
+    public void OnHit(Collidable _other) {
+
     }
 }
