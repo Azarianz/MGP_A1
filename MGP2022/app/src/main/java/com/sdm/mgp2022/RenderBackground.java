@@ -30,7 +30,7 @@ public class RenderBackground implements EntityBase {
         //indicate what image to use
         //load the image
 
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.gamescene);
+        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.space);
 
         // Get Screensize
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
@@ -44,7 +44,7 @@ public class RenderBackground implements EntityBase {
 
         if(GameSystem.Instance.GetIsPaused())
             return;
-        xPos -= _dt * 500;     //500 is just a variable number can be edited. It is to deal with speed = how fast the screen scrolls
+        //xPos -= _dt * 500;     //500 is just a variable number can be edited. It is to deal with speed = how fast the screen scrolls
 
         if (xPos < -ScreenWidth) {
             xPos = 0;
@@ -52,7 +52,7 @@ public class RenderBackground implements EntityBase {
     }
 
     public void Render(Canvas _canvas) {
-        //_canvas.drawBitmap(scaledbmp, xPos, yPos, null);
+        _canvas.drawBitmap(scaledbmp, xPos, yPos, null);
         //_canvas.drawBitmap(scaledbmp, xPos + ScreenWidth, yPos, null);
     }
 

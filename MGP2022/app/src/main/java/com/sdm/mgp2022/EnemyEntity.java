@@ -64,9 +64,9 @@ public class EnemyEntity implements EntityBase, Collidable{
             yPos = ran.nextInt(801);
         }
 
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.smurf_sprite);
+        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.flystone);
 
-        spriteSheet = new Sprite(bmp, 4, 4, 16);
+        spriteSheet = new Sprite(bmp, 1, 5, 16);
 
         // spriteSheet = new Sprite(bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.smurf_sprite), 4, 4, 16);
 
@@ -142,6 +142,10 @@ public class EnemyEntity implements EntityBase, Collidable{
         return result;
     }
 
+    public double GetDistanceFromPlayer(){
+        return playerDist;
+    }
+
     @Override
     public String GetType() {
         return "Enemy";
@@ -167,6 +171,7 @@ public class EnemyEntity implements EntityBase, Collidable{
         if(_other.GetType() == "Player")
         {
             Log.d("TAG", "OnHit: Player");
+            SetIsDone(true);
         }
     }
 }

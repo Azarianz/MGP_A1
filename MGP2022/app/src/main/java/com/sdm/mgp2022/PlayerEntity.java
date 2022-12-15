@@ -15,6 +15,10 @@ public class PlayerEntity implements EntityBase, Collidable{
     private Sprite spriteSheet;
     private boolean isInit = false;
 
+    private double targetX = 0, targetY = 0;
+
+    public float shootInterval = 60;
+
     public boolean IsDone() {
         return isDone;
     }
@@ -27,9 +31,9 @@ public class PlayerEntity implements EntityBase, Collidable{
         //indicate what image to use
         //load the image
 
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.smurf_sprite);
+        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.saucer);
 
-        spriteSheet = new Sprite(bmp, 4, 4, 16);
+        spriteSheet = new Sprite(bmp, 1, 4, 16);
 
         // spriteSheet = new Sprite(bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.smurf_sprite), 4, 4, 16);
 
@@ -81,6 +85,21 @@ public class PlayerEntity implements EntityBase, Collidable{
         PlayerEntity result = new PlayerEntity();
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_PLAYER);
         return result;
+    }
+
+    public void SetTarget(double x, double y)
+    {
+        targetX = x;
+        targetY = y;
+    }
+
+    public double GetTargetX()
+    {
+        return targetX;
+    }
+    public double GetTargetY()
+    {
+        return targetY;
     }
 
     @Override

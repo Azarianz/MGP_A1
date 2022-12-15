@@ -22,6 +22,9 @@ public class MainGameSceneState implements StateBase {
     private EnemyEntity enemy;
 
     float spawnTimer = 0, spawnInterval = 120;
+    float shootTimer;
+
+    double currentTarget = 9999;
 
     @Override
     public String GetName() {
@@ -33,12 +36,15 @@ public class MainGameSceneState implements StateBase {
         RenderBackground.Create();
        //SmurfEntity.Create();
         RenderText.Create();
+
         player = PlayerEntity.Create();
+
         jstick = Joystick.Create();
+
+
         StarEntity.Create();
         PauseButtonEntity.Create();
         InventoryEntity.Create();
-
         // Example to include another Renderview for Pause Button
     }
 
@@ -57,7 +63,7 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void Update(float _dt) {
 
-        //Spawner
+        //Enemy Spawner
         if (spawnTimer <= 0 && !GameSystem.Instance.GetIsPaused()) {
             spawnTimer += spawnInterval;
 
@@ -69,6 +75,21 @@ public class MainGameSceneState implements StateBase {
             if(!GameSystem.Instance.GetIsPaused())
                 spawnTimer--;
             Log.d("timer", "second until spawn: " + spawnTimer);
+        }
+
+        //Bullet Spawner
+        if (shootTimer <= 0 && !GameSystem.Instance.GetIsPaused()) {
+            shootTimer += player.shootInterval;
+
+            BulletEntity bullet = BulletEntity.Create(player.GetTargetX(), player.GetTargetY());
+            bullet.xPos = player.GetPosX();
+            bullet.yPos = player.GetPosY();
+            Log.d("enemyspawner", "spawned an enemy");
+        }
+        else {
+            if(!GameSystem.Instance.GetIsPaused())
+                shootTimer--;
+            Log.d("timer", "second until shoot: " + shootTimer);
         }
 
         EntityManager.Instance.Update(_dt);
@@ -101,11 +122,18 @@ public class MainGameSceneState implements StateBase {
 
         //Movement Update
         Iterator<EnemyEntity> iteratorEnemy = enemyList.iterator();
-        while (iteratorEnemy.hasNext()) {
+        while (iteratorEnemy.hasNext())
+        {
             EnemyEntity enemyIT = iteratorEnemy.next();
             enemyIT.MoveToTarget(player.GetPosX(), player.GetPosY());
             //Log.d("ITERATOR MOVEMENT", "PLAYER X: " + player.GetPosX() + "PLAYER Y: " + player.GetPosY());
             //Log.d("ITERATOR MOVEMENT", "ENEMYIT XPOS: " + enemyIT.GetPosX() + "ENEMYIT YPOS: " + enemyIT.GetPosY());
+
+            //Player aim closest
+            if(enemyIT.GetDistanceFromPlayer() < currentTarget)
+            {
+                player.SetTarget(enemyIT.GetPosX(), enemyIT.GetPosY());
+            }
         }
         player.UpdateJoystick(jstick);
     }
