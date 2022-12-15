@@ -37,6 +37,7 @@ public class MainGameSceneState implements StateBase {
         jstick = Joystick.Create();
         StarEntity.Create();
         PauseButtonEntity.Create();
+        InventoryEntity.Create();
 
         // Example to include another Renderview for Pause Button
     }
@@ -55,8 +56,9 @@ public class MainGameSceneState implements StateBase {
 
     @Override
     public void Update(float _dt) {
+
         //Spawner
-        if (spawnTimer <= 0) {
+        if (spawnTimer <= 0 && !GameSystem.Instance.GetIsPaused()) {
             spawnTimer += spawnInterval;
 
             enemyList.add(EnemyEntity.Create());
@@ -64,7 +66,8 @@ public class MainGameSceneState implements StateBase {
             Log.d("enemyspawner", "spawned an enemy");
         }
         else {
-            spawnTimer--;
+            if(!GameSystem.Instance.GetIsPaused())
+                spawnTimer--;
             Log.d("timer", "second until spawn: " + spawnTimer);
         }
 

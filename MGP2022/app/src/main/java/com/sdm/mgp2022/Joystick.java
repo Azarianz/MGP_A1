@@ -121,7 +121,7 @@ public class Joystick implements EntityBase {
     }
 
     public int GetRenderLayer() {
-        return LayerConstants.RENDERPAUSE_LAYER;
+        return LayerConstants.RENDERJOYSTICK_LAYER;
     }
 
     public ENTITY_TYPE GetEntityType() {

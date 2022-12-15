@@ -74,6 +74,8 @@ public class EnemyEntity implements EntityBase, Collidable{
     }
 
     public void Update(float _dt) {
+        if(GameSystem.Instance.GetIsPaused())
+            return;
         spriteSheet.Update(_dt);
 
         // =========================================================================================

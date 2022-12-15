@@ -37,6 +37,8 @@ public class PlayerEntity implements EntityBase, Collidable{
     }
 
     public void Update(float _dt) {
+        if(GameSystem.Instance.GetIsPaused())
+            return;
         spriteSheet.Update(_dt);
 
         // Addon codes provided on week 6 slides
@@ -44,6 +46,8 @@ public class PlayerEntity implements EntityBase, Collidable{
 
     public void UpdateJoystick(Joystick joystick)
     {
+        if(GameSystem.Instance.GetIsPaused())
+            return;
         // Update velocity based on actuator of joystick
         xVel = joystick.getActuatorX()*MAX_SPEED;
         yVel = joystick.getActuatorY()*MAX_SPEED;

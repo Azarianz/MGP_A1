@@ -1,18 +1,21 @@
 package com.sdm.mgp2022;
 
+import android.content.ClipData;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.hardware.display.DisplayManager;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
-public class PauseButtonEntity implements EntityBase {
+import java.util.List;
 
+public class InventoryEntity implements EntityBase{
     private Bitmap bmp, bmp1 = null;
     private Bitmap sbmp, sbmp1 = null;
+
+    private List<ClipData.Item> items;
+    private int maxCapacity;
 
     int ScreenWidth, ScreenHeight;
 
@@ -35,19 +38,19 @@ public class PauseButtonEntity implements EntityBase {
         //indicate what image to use
         //load the image
 
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.pause);
+        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.inventory_holder);
 
-        bmp1 = BitmapFactory.decodeResource(_view.getResources(), R.drawable.pause1);
+        bmp1 = BitmapFactory.decodeResource(_view.getResources(), R.drawable.inventory_holder);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
 
         sbmp = Bitmap.createScaledBitmap(bmp, (int)(ScreenWidth)/12, (int)(ScreenHeight)/7, true);
-        sbmp1 = Bitmap.createScaledBitmap(bmp1, (int)(ScreenWidth)/12, (int)(ScreenHeight)/7, true);
+        sbmp1 = Bitmap.createScaledBitmap(bmp1, (int)(ScreenWidth)/16, (int)(ScreenHeight)/10, true);
 
-        xPos = ScreenWidth - 150;
-        yPos = 150;
+        xPos = ScreenWidth/2;
+        yPos = ScreenHeight - 150;
 
         isInit = true;
     }
@@ -55,7 +58,7 @@ public class PauseButtonEntity implements EntityBase {
     public void Update(float _dt) {
 
         // Addon codes provided on week 6 slides
-        buttonDelay += _dt;
+        /*buttonDelay += _dt;
 
         if(TouchManager.Instance.HasTouch())
         {
@@ -72,15 +75,13 @@ public class PauseButtonEntity implements EntityBase {
             }
         }
         else
-            Paused = false;
+            Paused = false;*/
 
     }
 
     public void Render(Canvas _canvas) {
-        if(!Paused)
-            _canvas.drawBitmap(sbmp, xPos - sbmp.getWidth() * 0.5f, yPos - sbmp.getHeight() * 0.5f, null);
-        else
-            _canvas.drawBitmap(sbmp1, xPos - sbmp1.getWidth() * 0.5f, yPos - sbmp1.getHeight() * 0.5f, null);
+        _canvas.drawBitmap(sbmp, xPos - sbmp.getWidth() * 0.5f, yPos - sbmp.getHeight() * 0.5f, null);
+        _canvas.drawBitmap(sbmp1, (xPos - 250) - sbmp1.getWidth() * 0.5f, yPos - sbmp1.getHeight() * 0.5f, null);
     }
 
     public boolean IsInit() {
@@ -95,13 +96,13 @@ public class PauseButtonEntity implements EntityBase {
         return LayerConstants.RENDERPAUSE_LAYER;
     }
 
-    public ENTITY_TYPE GetEntityType() {
-        return ENTITY_TYPE.ENT_PAUSE;
+    public EntityBase.ENTITY_TYPE GetEntityType() {
+        return ENTITY_TYPE.ENT_INVENTORY;
     }
 
-    public static PauseButtonEntity Create() {
-        PauseButtonEntity result = new PauseButtonEntity();
-        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_PAUSE);
+    public static InventoryEntity Create() {
+        InventoryEntity result = new InventoryEntity();
+        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_INVENTORY);
         return result;
     }
 }
