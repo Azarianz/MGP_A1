@@ -2,6 +2,7 @@ package com.sdm.mgp2022;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.SurfaceView;
 
 // Created by TanSiewLan2021
@@ -21,15 +22,7 @@ public class GameSystem {
 
     public void Update(float _deltaTime)
     {
-        if(hp <= 0)
-        {
-            GamePage.Instance.LoseGame();
-        }
 
-        else if(score >= 100)
-        {
-            GamePage.Instance.WinGame();
-        }
     }
 
     public void Init(SurfaceView _view)
@@ -69,5 +62,11 @@ public class GameSystem {
     }
 
     public int GetScore(){return score;}
+
+    public void ResetGameValues()
+    {
+        hp = 100;
+        score = 0;
+    }
 
 }

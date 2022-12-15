@@ -62,6 +62,18 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void Update(float _dt) {
 
+        if(GameSystem.Instance.GetHealth() <= 0)
+        {
+            GamePage.Instance.LoseGame();
+            GameSystem.Instance.ResetGameValues();
+        }
+
+        else if(GameSystem.Instance.GetScore() >= 100)
+        {
+            GamePage.Instance.WinGame();
+            GameSystem.Instance.ResetGameValues();
+        }
+
         //StateManager.Instance.PrintAllStates();
         //Enemy Spawner
         if (spawnTimer <= 0 && !GameSystem.Instance.GetIsPaused()) {

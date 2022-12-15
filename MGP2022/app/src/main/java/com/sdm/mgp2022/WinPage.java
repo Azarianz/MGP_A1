@@ -38,7 +38,7 @@ public class WinPage extends Activity implements OnClickListener, StateBase {  /
         btn_quit = (Button)findViewById(R.id.btn_quit);
         btn_quit.setOnClickListener(this); //Set Listener to this button --> Back Button
 
-        StateManager.Instance.AddState(new WinPage());
+        StateManager.Instance.AddState(new Mainmenu());
     }
 
     @Override
@@ -49,21 +49,19 @@ public class WinPage extends Activity implements OnClickListener, StateBase {  /
         // Intent is an object provides runtime binding.
         // new instance of this object intent
 
-        Intent intent = new Intent();
-
         if (v == btn_playagain)
         {
             // intent --> to set to another class which another page or screen that we are launching.
-            intent.setClass(this, GamePage.class);
+            Intent intent = new Intent(WinPage.this, GamePage.class);
             StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
-
+            startActivity(intent);
         }
-
         else if (v == btn_quit)
         {
             this.finishAffinity();
         }
-        startActivity(intent);
+
+
     }
 
     @Override
