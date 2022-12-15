@@ -168,7 +168,7 @@ public class EnemyEntity implements EntityBase, Collidable{
 
     @Override
     public void OnHit(Collidable _other) {
-        if(_other.GetType() == "Player")
+        if(_other.GetType() == "PlayerEntity")
         {
             Log.d("TAG", "OnHit: Player");
             SetIsDone(true);

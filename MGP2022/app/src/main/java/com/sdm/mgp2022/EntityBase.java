@@ -16,6 +16,7 @@ public interface EntityBase
         ENT_TEXT,
         ENT_JOYSTICK,
         ENT_INVENTORY,
+        ENT_WEAPON,
         //ENT_NEXT,
         ENT_DEFAULT,
     }

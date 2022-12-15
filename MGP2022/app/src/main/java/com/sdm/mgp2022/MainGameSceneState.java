@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.LongStream;
 
 // Created by TanSiewLan2021
 
@@ -33,18 +34,15 @@ public class MainGameSceneState implements StateBase {
 
     @Override
     public void OnEnter(SurfaceView _view) {
+
         RenderBackground.Create();
        //SmurfEntity.Create();
-        RenderText.Create();
 
         player = PlayerEntity.Create();
-
         jstick = Joystick.Create();
-
-
         StarEntity.Create();
         PauseButtonEntity.Create();
-        InventoryEntity.Create();
+        RenderText.Create(player);
         // Example to include another Renderview for Pause Button
     }
 
@@ -63,6 +61,7 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void Update(float _dt) {
 
+        StateManager.Instance.PrintAllStates();
         //Enemy Spawner
         if (spawnTimer <= 0 && !GameSystem.Instance.GetIsPaused()) {
             spawnTimer += spawnInterval;

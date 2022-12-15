@@ -13,11 +13,10 @@ import android.content.Intent;
 
 // Created by TanSiewLan2021
 
-public class Mainmenu extends Activity implements OnClickListener, StateBase {  //Using StateBase class
+public class LosePage extends Activity implements OnClickListener, StateBase {  //Using StateBase class
 
     //Define buttons
-    private Button btn_start;
-    private Button btn_options;
+    private Button btn_retry;
     private Button btn_quit;
 
     @Override
@@ -31,19 +30,15 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.mainmenu);
+        setContentView(R.layout.losemenu);
 
-        btn_start = (Button)findViewById(R.id.btn_start);
-        btn_start.setOnClickListener(this); //Set Listener to this button --> Start Button
-
-        btn_options = (Button)findViewById(R.id.btn_options);
-        btn_options.setOnClickListener(this); //Set Listener to this button --> Options Button
+        btn_retry = (Button)findViewById(R.id.btn_retry);
+        btn_retry.setOnClickListener(this); //Set Listener to this button --> Start Button
 
         btn_quit = (Button)findViewById(R.id.btn_quit);
         btn_quit.setOnClickListener(this); //Set Listener to this button --> Back Button
 
-        StateManager.Instance.AddState(new Mainmenu());
-
+        //StateManager.Instance.AddState(new LosePage());
     }
 
     @Override
@@ -54,48 +49,45 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         // Intent is an object provides runtime binding.
         // new instance of this object intent
 
-        Intent intent = new Intent();
+        //Intent intent = new Intent();
 
-        if (v == btn_start)
+        if (v == btn_retry)
         {
             // intent --> to set to another class which another page or screen that we are launching.
-            intent.setClass(this, GamePage.class);
+            //intent.setClass(this, GamePage.class);
             StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
+            //startActivity(intent);
 
-        }
-
-        else if (v == btn_options)
-        {
-            intent.setClass(this, Options.class);
         }
 
         else if (v == btn_quit)
         {
             this.finishAffinity();
+            //startActivity(intent);
         }
-        startActivity(intent);
+
 
     }
 
     @Override
     public void Render(Canvas _canvas) {
     }
-	
+
     @Override
     public void OnEnter(SurfaceView _view) {
     }
-	
+
     @Override
     public void OnExit() {
     }
-	
+
     @Override
     public void Update(float _dt) {
     }
-	
+
     @Override
     public String GetName() {
-        return "Mainmenu";
+        return "LosePage";
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.sdm.mgp2022;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,6 +9,7 @@ import android.view.SurfaceView;
 public class PlayerEntity implements EntityBase, Collidable{
 
     private double MAX_SPEED = 6.0f;
+    public int health = 100;
     private Bitmap bmp = null;
     private boolean isDone = false;
     private double xPos = 0, yPos = 0;
@@ -44,6 +46,11 @@ public class PlayerEntity implements EntityBase, Collidable{
         if(GameSystem.Instance.GetIsPaused())
             return;
         spriteSheet.Update(_dt);
+
+        if(health <= 0)
+        {
+            StateManager.Instance.ChangeState("LosePage"); // Default is like a loading page
+        }
 
         // Addon codes provided on week 6 slides
     }
@@ -122,8 +129,17 @@ public class PlayerEntity implements EntityBase, Collidable{
         return 0;
     }
 
+    public int GetHealth()
+    {
+        return health;
+    }
+
     @Override
     public void OnHit(Collidable _other) {
-
+        if(_other.GetType() != this.GetType()
+                && _other.GetType() !=  "BulletEntity") {
+            // Another entity
+            health -= 10;
+        }
     }
 }

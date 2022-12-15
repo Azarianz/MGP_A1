@@ -25,6 +25,8 @@ public class RenderText implements EntityBase{
     long lastTime = 0;
     long lastFPSTime = 0;
     float fps;
+    int hp;
+    public PlayerEntity player;
     // Our own font type
 
     Typeface myFont;
@@ -47,6 +49,7 @@ public class RenderText implements EntityBase{
 
     public void Update(float _dt) {
         // get actual fps
+        hp = player.GetHealth();
         frameCount++;
         long currentTime = System.currentTimeMillis();
 
@@ -61,11 +64,11 @@ public class RenderText implements EntityBase{
 
     public void Render(Canvas _canvas) {
         //Paint paint = new Paint();
-        paint.setARGB(255, 0,0,0); // number range from 0 - 255
+        paint.setARGB(255, 255,255,255); // number range from 0 - 255
         paint.setStrokeWidth(200);
-        paint.setTextSize(50);
+        paint.setTextSize(100);
         paint.setTypeface(myFont);
-        _canvas.drawText("FPS: " + fps, 30, 80, paint);
+        _canvas.drawText("Health: " + hp, 30, 80, paint);
     }
 
     public boolean IsInit() {
@@ -84,9 +87,10 @@ public class RenderText implements EntityBase{
         return ENTITY_TYPE.ENT_TEXT;
     }
 
-    public static RenderText Create() {
+    public static RenderText Create(PlayerEntity _player) {
         RenderText result = new RenderText();
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_TEXT);
+        result.player = _player;
         return result;
     }
 }

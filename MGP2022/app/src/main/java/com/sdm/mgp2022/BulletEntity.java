@@ -182,7 +182,7 @@ public class BulletEntity implements EntityBase, Collidable{
     @Override
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType()
-                && _other.GetType() !=  "Player") {  // Another entity
+                && _other.GetType() !=  "PlayerEntity") {  // Another entity
             SetIsDone(true);
         }
     }

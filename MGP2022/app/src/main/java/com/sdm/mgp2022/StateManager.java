@@ -5,6 +5,7 @@ package com.sdm.mgp2022;
 // StateManager to deal with which state is current or next.
 
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.SurfaceView;
 
 import java.util.HashMap;
@@ -93,5 +94,12 @@ public class StateManager {
 
     public void Clean(){
         stateMap.clear();
+    }
+
+    public void PrintAllStates()
+    {
+        for (String name : stateMap.keySet()) {
+            Log.d("ALL STATE PRINT", "State:" + name);
+        }
     }
 }
