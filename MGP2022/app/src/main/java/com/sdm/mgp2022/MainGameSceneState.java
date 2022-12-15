@@ -1,6 +1,7 @@
 package com.sdm.mgp2022;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -40,7 +41,7 @@ public class MainGameSceneState implements StateBase {
 
         player = PlayerEntity.Create();
         jstick = Joystick.Create();
-        StarEntity.Create();
+        //StarEntity.Create();
         PauseButtonEntity.Create();
         RenderText.Create(player);
         // Example to include another Renderview for Pause Button
@@ -61,19 +62,19 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void Update(float _dt) {
 
-        StateManager.Instance.PrintAllStates();
+        //StateManager.Instance.PrintAllStates();
         //Enemy Spawner
         if (spawnTimer <= 0 && !GameSystem.Instance.GetIsPaused()) {
             spawnTimer += spawnInterval;
 
             enemyList.add(EnemyEntity.Create());
 
-            Log.d("enemyspawner", "spawned an enemy");
+            //Log.d("enemyspawner", "spawned an enemy");
         }
         else {
             if(!GameSystem.Instance.GetIsPaused())
                 spawnTimer--;
-            Log.d("timer", "second until spawn: " + spawnTimer);
+            //Log.d("timer", "second until spawn: " + spawnTimer);
         }
 
         //Bullet Spawner
@@ -83,12 +84,12 @@ public class MainGameSceneState implements StateBase {
             BulletEntity bullet = BulletEntity.Create(player.GetTargetX(), player.GetTargetY());
             bullet.xPos = player.GetPosX();
             bullet.yPos = player.GetPosY();
-            Log.d("enemyspawner", "spawned an enemy");
+           // Log.d("enemyspawner", "spawned an enemy");
         }
         else {
             if(!GameSystem.Instance.GetIsPaused())
                 shootTimer--;
-            Log.d("timer", "second until shoot: " + shootTimer);
+            //Log.d("timer", "second until shoot: " + shootTimer);
         }
 
         EntityManager.Instance.Update(_dt);
@@ -135,6 +136,12 @@ public class MainGameSceneState implements StateBase {
             }
         }
         player.UpdateJoystick(jstick);
+    }
+
+    public void EndGame()
+    {
+        //Intent intent = new Intent();
+        //intent.setClass(this, Lo)
     }
 
 }

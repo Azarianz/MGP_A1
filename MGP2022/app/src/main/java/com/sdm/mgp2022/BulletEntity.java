@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 public class BulletEntity implements EntityBase, Collidable{
@@ -52,6 +53,10 @@ public class BulletEntity implements EntityBase, Collidable{
         // New method using our own resource manager : Returns pre-loaded one if exists
         bmp = ResourceManager.Instance.GetBitmap(R.drawable.star);
         spriteSheet = new Sprite(ResourceManager.Instance.GetBitmap(R.drawable.star), 4, 4, 16);
+
+        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
+        ScreenWidth = metrics.widthPixels;
+        ScreenHeight = metrics.heightPixels;
 
         isInit = true;
         //_vibrator = (Vibrator)_view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
@@ -111,6 +116,10 @@ public class BulletEntity implements EntityBase, Collidable{
         // Update position
         xPos += xVel;
         yPos += yVel;
+        if(xPos < 0 || xPos > ScreenWidth || yPos < 0 || yPos > ScreenHeight)
+        {
+            SetIsDone(true);
+        }
     }
 
     @Override
@@ -159,7 +168,7 @@ public class BulletEntity implements EntityBase, Collidable{
 
     @Override
     public String GetType() {
-        return "BulletEntity";
+        return "Bullet";
     }
 
     @Override
@@ -180,7 +189,7 @@ public class BulletEntity implements EntityBase, Collidable{
     @Override
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType()
-                && _other.GetType() !=  "PlayerEntity") {  // Another entity
+                && _other.GetType() !=  "Player") {  // Another entity
             SetIsDone(true);
         }
     }

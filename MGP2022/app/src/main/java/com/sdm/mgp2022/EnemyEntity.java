@@ -133,12 +133,12 @@ public class EnemyEntity implements EntityBase, Collidable{
     }
 
     public ENTITY_TYPE GetEntityType() {
-        return ENTITY_TYPE.ENT_PLAYER;
+        return ENTITY_TYPE.ENT_ENEMY;
     }
 
     public static EnemyEntity Create() {
         EnemyEntity result = new EnemyEntity();
-        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_PLAYER);
+        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_ENEMY);
         return result;
     }
 
@@ -147,9 +147,7 @@ public class EnemyEntity implements EntityBase, Collidable{
     }
 
     @Override
-    public String GetType() {
-        return "Enemy";
-    }
+    public String GetType() { return "Enemy";}
 
     @Override
     public float GetPosX() {
@@ -168,10 +166,11 @@ public class EnemyEntity implements EntityBase, Collidable{
 
     @Override
     public void OnHit(Collidable _other) {
-        if(_other.GetType() != this.GetType())
+        if(_other.GetType() != this.GetType()
+        && _other.GetType() == "Player")
         {
             Log.d("TAG", "OnHit: Player");
-            SetIsDone(true);
+            //SetIsDone(true);
         }
     }
 }

@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -25,8 +26,9 @@ public class RenderText implements EntityBase{
     long lastTime = 0;
     long lastFPSTime = 0;
     float fps;
-    int hp;
     public PlayerEntity player;
+
+    int ScreenWidth, ScreenHeight;
     // Our own font type
 
     Typeface myFont;
@@ -41,6 +43,10 @@ public class RenderText implements EntityBase{
 
     public void Init(SurfaceView _view) {
 
+        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
+        ScreenWidth = metrics.widthPixels;
+        ScreenHeight = metrics.heightPixels;
+
         //myFont = Typeface.create(Typeface.DEFAULT_BOLD, Typeface.NORMAL);
         myFont = Typeface.createFromFile("fonts/BebasNeue-Bold.otf");
         //myFont = ResourcesCompat.getFont(_view.getContext(), R.fonts.BebasNeue-Bold);
@@ -49,7 +55,6 @@ public class RenderText implements EntityBase{
 
     public void Update(float _dt) {
         // get actual fps
-        hp = player.GetHealth();
         frameCount++;
         long currentTime = System.currentTimeMillis();
 
@@ -68,7 +73,8 @@ public class RenderText implements EntityBase{
         paint.setStrokeWidth(200);
         paint.setTextSize(100);
         paint.setTypeface(myFont);
-        _canvas.drawText("Health: " + hp, 30, 80, paint);
+        _canvas.drawText("Health: " + GameSystem.Instance.GetHealth(), 30, 80, paint);
+        _canvas.drawText("Score: " + GameSystem.Instance.GetScore(), 1000, 80, paint);
     }
 
     public boolean IsInit() {

@@ -1,5 +1,6 @@
 package com.sdm.mgp2022;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -43,8 +44,8 @@ public class PauseButtonEntity implements EntityBase {
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
 
-        sbmp = Bitmap.createScaledBitmap(bmp, (int)(ScreenWidth)/12, (int)(ScreenHeight)/7, true);
-        sbmp1 = Bitmap.createScaledBitmap(bmp1, (int)(ScreenWidth)/12, (int)(ScreenHeight)/7, true);
+        sbmp = Bitmap.createScaledBitmap(bmp, (int)(ScreenWidth)/16, (int)(ScreenHeight)/10, true);
+        sbmp1 = Bitmap.createScaledBitmap(bmp1, (int)(ScreenWidth)/16, (int)(ScreenHeight)/10, true);
 
         xPos = ScreenWidth - 150;
         yPos = 150;
@@ -66,8 +67,9 @@ public class PauseButtonEntity implements EntityBase {
                 if(Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius)
                         && buttonDelay >= 0.25)
                 {
-                    Paused = true;
-                    GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
+                    GamePage.Instance.LoseGame();
+                    //Paused = true;
+                    //GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
                 }
             }
         }

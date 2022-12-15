@@ -11,6 +11,8 @@ public class GameSystem {
 
     // Game stuff
     private boolean isPaused = false;
+    private int hp = 100;
+    private int score = 0;
 
     // Singleton Pattern : Blocks others from creating
     private GameSystem()
@@ -19,16 +21,21 @@ public class GameSystem {
 
     public void Update(float _deltaTime)
     {
+        if(hp <= 0)
+        {
+            GamePage.Instance.LoseGame();
+        }
     }
 
     public void Init(SurfaceView _view)
     {
 
         // We will add all of our states into the state manager here!
-        StateManager.Instance.AddState(new Mainmenu());
+        //StateManager.Instance.AddState(new LosePage());
+        //StateManager.Instance.AddState(new WinPage());
+        //StateManager.Instance.AddState(new Mainmenu());
         StateManager.Instance.AddState(new MainGameSceneState());
-        StateManager.Instance.AddState(new LosePage());
-        StateManager.Instance.AddState(new WinPage());
+
     }
 
     public void SetIsPaused(boolean _newIsPaused)
@@ -40,5 +47,22 @@ public class GameSystem {
     {
         return isPaused;
     }
+
+    public void TakeDamage()
+    {
+        hp -= 10;
+    }
+
+    public int GetHealth()
+    {
+        return hp;
+    }
+
+    public void AddScore()
+    {
+        score += 10;
+    }
+
+    public int GetScore(){return score;}
 
 }

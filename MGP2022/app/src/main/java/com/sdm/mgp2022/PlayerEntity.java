@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 public class PlayerEntity implements EntityBase, Collidable{
 
     private double MAX_SPEED = 6.0f;
-    public int health = 100;
     private Bitmap bmp = null;
     private boolean isDone = false;
     private double xPos = 0, yPos = 0;
@@ -19,7 +19,9 @@ public class PlayerEntity implements EntityBase, Collidable{
 
     private double targetX = 0, targetY = 0;
 
-    public float shootInterval = 60;
+    public float shootInterval = 180;
+
+    int ScreenWidth, ScreenHeight;
 
     public boolean IsDone() {
         return isDone;
@@ -37,8 +39,13 @@ public class PlayerEntity implements EntityBase, Collidable{
 
         spriteSheet = new Sprite(bmp, 1, 4, 16);
 
-        // spriteSheet = new Sprite(bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.smurf_sprite), 4, 4, 16);
+        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
+        ScreenWidth = metrics.widthPixels;
+        ScreenHeight = metrics.heightPixels;
 
+        // spriteSheet = new Sprite(bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.smurf_sprite), 4, 4, 16);
+        xPos = ScreenWidth/2;
+        yPos = ScreenHeight/2;
         isInit = true;
     }
 
@@ -46,11 +53,6 @@ public class PlayerEntity implements EntityBase, Collidable{
         if(GameSystem.Instance.GetIsPaused())
             return;
         spriteSheet.Update(_dt);
-
-        if(health <= 0)
-        {
-            StateManager.Instance.ChangeState("LosePage"); // Default is like a loading page
-        }
 
         // Addon codes provided on week 6 slides
     }
@@ -111,7 +113,7 @@ public class PlayerEntity implements EntityBase, Collidable{
 
     @Override
     public String GetType() {
-        return "PlayerEntity";
+        return "Player";
     }
 
     @Override
@@ -129,17 +131,12 @@ public class PlayerEntity implements EntityBase, Collidable{
         return 0;
     }
 
-    public int GetHealth()
-    {
-        return health;
-    }
-
     @Override
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType()
-                && _other.GetType() !=  "BulletEntity") {
+        && _other.GetType() != "Bullet") {
             // Another entity
-            health -= 10;
+            GameSystem.Instance.TakeDamage();
         }
     }
 }

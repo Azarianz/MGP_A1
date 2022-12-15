@@ -2,6 +2,7 @@ package com.sdm.mgp2022;
 
 import android.app.Activity;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,7 +39,8 @@ public class LosePage extends Activity implements OnClickListener, StateBase {  
         btn_quit = (Button)findViewById(R.id.btn_quit);
         btn_quit.setOnClickListener(this); //Set Listener to this button --> Back Button
 
-        StateManager.Instance.AddState(new LosePage());
+        StateManager.Instance.AddState(new Mainmenu());
+
     }
 
     @Override
@@ -54,7 +56,7 @@ public class LosePage extends Activity implements OnClickListener, StateBase {  
         if (v == btn_retry)
         {
             // intent --> to set to another class which another page or screen that we are launching.
-            intent.setClass(this, GamePage.class);
+            intent.setClass(LosePage.this, GamePage.class);
             StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
         }
 

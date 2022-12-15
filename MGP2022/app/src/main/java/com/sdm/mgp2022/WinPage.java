@@ -64,7 +64,6 @@ public class WinPage extends Activity implements OnClickListener, StateBase {  /
             this.finishAffinity();
         }
         startActivity(intent);
-
     }
 
     @Override
