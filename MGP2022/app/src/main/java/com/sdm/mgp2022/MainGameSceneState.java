@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.util.DisplayMetrics;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,6 +28,7 @@ public class MainGameSceneState implements StateBase {
     float shootTimer;
 
     double currentTarget = 9999;
+    int ScreenWidth, ScreenHeight;
 
     @Override
     public String GetName() {
@@ -44,6 +46,10 @@ public class MainGameSceneState implements StateBase {
         //StarEntity.Create();
         PauseButtonEntity.Create();
         RenderText.Create(player);
+
+        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
+        ScreenWidth = metrics.widthPixels;
+        ScreenHeight = metrics.heightPixels;
         // Example to include another Renderview for Pause Button
     }
 
@@ -66,12 +72,18 @@ public class MainGameSceneState implements StateBase {
         {
             GamePage.Instance.LoseGame();
             GameSystem.Instance.ResetGameValues();
+            player.ResetGameValues();
+            spawnTimer = 0;
+            shootTimer = 0;
         }
 
         else if(GameSystem.Instance.GetScore() >= 100)
         {
             GamePage.Instance.WinGame();
             GameSystem.Instance.ResetGameValues();
+            player.ResetGameValues();
+            spawnTimer = 0;
+            shootTimer = 0;
         }
 
         //StateManager.Instance.PrintAllStates();
@@ -93,9 +105,13 @@ public class MainGameSceneState implements StateBase {
         if (shootTimer <= 0 && !GameSystem.Instance.GetIsPaused()) {
             shootTimer += player.shootInterval;
 
-            BulletEntity bullet = BulletEntity.Create(player.GetTargetX(), player.GetTargetY());
-            bullet.xPos = player.GetPosX();
-            bullet.yPos = player.GetPosY();
+            if(player.canFire)
+            {
+                BulletEntity bullet = BulletEntity.Create(player.GetTargetX(), player.GetTargetY());
+                bullet.xPos = player.GetPosX();
+                bullet.yPos = player.GetPosY();
+            }
+
            // Log.d("enemyspawner", "spawned an enemy");
         }
         else {
@@ -103,8 +119,6 @@ public class MainGameSceneState implements StateBase {
                 shootTimer--;
             //Log.d("timer", "second until shoot: " + shootTimer);
         }
-
-        EntityManager.Instance.Update(_dt);
 
         //Joystick
         if (TouchManager.Instance.IsDown())
@@ -132,8 +146,10 @@ public class MainGameSceneState implements StateBase {
             jstick.resetActuator();
         }
 
+
         //Movement Update
         Iterator<EnemyEntity> iteratorEnemy = enemyList.iterator();
+        double currentTarget = 9999;
         while (iteratorEnemy.hasNext())
         {
             EnemyEntity enemyIT = iteratorEnemy.next();
@@ -141,12 +157,30 @@ public class MainGameSceneState implements StateBase {
             //Log.d("ITERATOR MOVEMENT", "PLAYER X: " + player.GetPosX() + "PLAYER Y: " + player.GetPosY());
             //Log.d("ITERATOR MOVEMENT", "ENEMYIT XPOS: " + enemyIT.GetPosX() + "ENEMYIT YPOS: " + enemyIT.GetPosY());
 
-            //Player aim closest
             if(enemyIT.GetDistanceFromPlayer() < currentTarget)
             {
-                player.SetTarget(enemyIT.GetPosX(), enemyIT.GetPosY());
+                currentTarget = enemyIT.GetDistanceFromPlayer();
+
+                //If enemy is within screen
+                if(enemyIT.xPos > 0 && enemyIT.xPos < ScreenWidth &&
+                        enemyIT.yPos > 0 && enemyIT.yPos < ScreenHeight)
+                {
+                    //Player aim closest
+                    player.SetTarget(enemyIT.GetPosX(), enemyIT.GetPosY());
+                    player.canFire = true;
+                }
+
+                //if target outside of screen dont shoot
+                else if(enemyIT.xPos < 0 && enemyIT.xPos > ScreenWidth &&
+                        enemyIT.yPos < 0 && enemyIT.yPos  > ScreenHeight)
+                {
+                    player.canFire = false;
+                }
             }
+
         }
+
+        EntityManager.Instance.Update(_dt);
         player.UpdateJoystick(jstick);
     }
 

@@ -17,9 +17,11 @@ public class PlayerEntity implements EntityBase, Collidable{
     private Sprite spriteSheet;
     private boolean isInit = false;
 
+    public boolean canFire = false;
+
     private double targetX = 0, targetY = 0;
 
-    public float shootInterval = 140.0f;
+    public float shootInterval = 80.0f;
 
     int ScreenWidth, ScreenHeight;
 
@@ -139,5 +141,16 @@ public class PlayerEntity implements EntityBase, Collidable{
             GameSystem.Instance.TakeDamage();
             GameSystem.Instance.AddScore(-5);
         }
+    }
+
+    public void ResetGameValues()
+    {
+        xPos = ScreenWidth/2;
+        yPos = ScreenHeight/2;
+        xVel = 0;
+        yVel = 0;
+        targetX = 0;
+        targetY = 0;
+        canFire = false;
     }
 }

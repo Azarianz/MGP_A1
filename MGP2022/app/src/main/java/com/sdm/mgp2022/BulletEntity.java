@@ -12,6 +12,9 @@ import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+
+import java.util.Set;
+
 public class BulletEntity implements EntityBase, Collidable{
 
     private Bitmap bmp = null;
@@ -32,6 +35,8 @@ public class BulletEntity implements EntityBase, Collidable{
     public double targetX=0, targetY=0;
     double targetDist = 0, targetXDist = 0, targetYDist = 0;
     double directionX, directionY;
+
+    public float bulletLifetime = 80.0f;
 
     private Vibrator _vibrator;
 
@@ -82,6 +87,13 @@ public class BulletEntity implements EntityBase, Collidable{
 
     @Override
     public void Update(float _dt) {
+        if(bulletLifetime <= 0)
+        {
+            SetIsDone(true);
+        }
+        else if(bulletLifetime > 0){
+            bulletLifetime--;
+        }
 
         // Do nothing if it is not in the main game state
         if (StateManager.Instance.GetCurrentState() != "MainGame")
@@ -115,7 +127,13 @@ public class BulletEntity implements EntityBase, Collidable{
         // Update position
         xPos += xVel;
         yPos += yVel;
+
         if(xPos < 0 || xPos > ScreenWidth || yPos < 0 || yPos > ScreenHeight)
+        {
+            SetIsDone(true);
+        }
+
+        if(xVel == targetX && yPos == targetY)
         {
             SetIsDone(true);
         }
