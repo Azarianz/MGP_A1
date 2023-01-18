@@ -2,6 +2,7 @@ package com.sdm.mgp2022;
 
 import android.app.Activity;
 import android.graphics.Canvas;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
@@ -19,6 +20,7 @@ public class LosePage extends Activity implements OnClickListener, StateBase {  
     //Define buttons
     private Button btn_retry;
     private Button btn_quit;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class LosePage extends Activity implements OnClickListener, StateBase {  
         btn_quit.setOnClickListener(this); //Set Listener to this button --> Back Button
 
         StateManager.Instance.AddState(new Mainmenu());
+        mp = MediaPlayer.create(this, R.raw.select);
 
     }
 
@@ -64,6 +67,7 @@ public class LosePage extends Activity implements OnClickListener, StateBase {  
         {
             this.finishAffinity();
         }
+        mp.start();
         startActivity(intent);
 
     }

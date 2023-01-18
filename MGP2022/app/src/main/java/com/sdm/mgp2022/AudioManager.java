@@ -12,6 +12,8 @@ public class AudioManager {
 
     private SurfaceView view = null;
     private HashMap<Integer, MediaPlayer> audioMap = new HashMap<Integer, MediaPlayer>();
+    private boolean sfxState = true;
+    private boolean musicState = true;
 
     private AudioManager()
     {
@@ -76,5 +78,21 @@ public class AudioManager {
         MediaPlayer result = MediaPlayer.create(view.getContext(), _id);
         audioMap.put(_id, result);
         return result;
+    }
+
+    public void SetAudioState(boolean _sfxState, boolean _musicState)
+    {
+        sfxState = _sfxState;
+        musicState = _musicState;
+    }
+
+    public boolean GetSFXState()
+    {
+        return sfxState;
+    }
+
+    public boolean GetMusicState()
+    {
+        return musicState;
     }
 }

@@ -1,5 +1,8 @@
 package com.sdm.mgp2022;
 
+import android.os.Build;
+import android.os.Vibrator;
+import android.os.VibrationEffect;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +19,8 @@ public class PlayerEntity implements EntityBase, Collidable{
     private double xVel = 0, yVel = 0;
     private Sprite spriteSheet;
     private boolean isInit = false;
+
+    private Vibrator _vibrator;
 
     public boolean canFire = false;
 
@@ -49,6 +54,8 @@ public class PlayerEntity implements EntityBase, Collidable{
         xPos = ScreenWidth/2;
         yPos = ScreenHeight/2;
         isInit = true;
+
+        _vibrator =(Vibrator) _view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
     }
 
     public void Update(float _dt) {
@@ -140,7 +147,28 @@ public class PlayerEntity implements EntityBase, Collidable{
             // Collided with enemy
             GameSystem.Instance.TakeDamage();
             GameSystem.Instance.AddScore(-5);
+            startVibrate();
+            if(AudioManager.Instance.GetSFXState())
+                AudioManager.Instance.PlayAudio(R.raw.player_hit, 0.9f);
         }
+    }
+
+    public void startVibrate()
+    {
+        if(Build.VERSION.SDK_INT >= 26)
+        {
+            _vibrator.vibrate(VibrationEffect.createOneShot(150,10));
+        }
+        else
+        {
+            long pattern[] = {0,50,0};
+            _vibrator.vibrate(pattern,-1);
+        }
+    }
+
+    public void stopVibrate()
+    {
+        _vibrator.cancel();
     }
 
     public void ResetGameValues()

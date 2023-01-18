@@ -2,6 +2,8 @@ package com.sdm.mgp2022;
 
 import android.app.Activity;
 import android.graphics.Canvas;
+import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.content.Intent;
+import android.widget.CheckBox;
 
 // Created by TanSiewLan2021
 
@@ -17,6 +20,10 @@ public class Options extends Activity implements OnClickListener, StateBase {  /
 
     //Define buttons
     private Button btn_back;
+    private CheckBox cb_sfx;
+    private CheckBox cb_music;
+    private boolean sfxState = false, musicState = true;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +41,16 @@ public class Options extends Activity implements OnClickListener, StateBase {  /
         btn_back = (Button)findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this); //Set Listener to this button --> Back Button
 
+        cb_sfx = (CheckBox) findViewById(R.id.cb_sfx);
+        //cb_sfx.setOnClickListener(this); //Set Listener to this button --> Back Button
+
+        cb_music = (CheckBox)findViewById(R.id.cb_music);
+        //cb_music.setOnClickListener(this); //Set Listener to this button --> Back Button
+        cb_sfx.setChecked(AudioManager.Instance.GetSFXState());
+        cb_music.setChecked(AudioManager.Instance.GetMusicState());
         StateManager.Instance.AddState(new Options());
+
+        mp = MediaPlayer.create(this, R.raw.select);
     }
 
     @Override
@@ -58,9 +74,22 @@ public class Options extends Activity implements OnClickListener, StateBase {  /
         if (v == btn_back)
         {
             intent.setClass(this, Mainmenu.class);
-        }
-        startActivity(intent);
+            if(cb_sfx.isChecked())
+                sfxState = true;
+            else
+                sfxState = false;
 
+            if(cb_music.isChecked())
+                musicState = true;
+            else
+                musicState = false;
+
+            AudioManager.Instance.SetAudioState(sfxState, musicState);
+            //AudioManager.Instance.PlayAudio(R.raw.select,0.9f);
+        }
+
+        mp.start();
+        startActivity(intent);
     }
 
     @Override
@@ -69,6 +98,7 @@ public class Options extends Activity implements OnClickListener, StateBase {  /
 
     @Override
     public void OnEnter(SurfaceView _view) {
+
     }
 
     @Override

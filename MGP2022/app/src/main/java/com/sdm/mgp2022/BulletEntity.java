@@ -12,7 +12,6 @@ import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
-
 import java.util.Set;
 
 public class BulletEntity implements EntityBase, Collidable{
@@ -64,7 +63,9 @@ public class BulletEntity implements EntityBase, Collidable{
         ScreenHeight = metrics.heightPixels;
 
         isInit = true;
-        //_vibrator = (Vibrator)_view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
+        _vibrator = (Vibrator)_view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
+        if(AudioManager.Instance.GetSFXState())
+            AudioManager.Instance.PlayAudio(R.raw.shoot, 0.9f);
     }
 
     public void startVibrate()
@@ -208,7 +209,10 @@ public class BulletEntity implements EntityBase, Collidable{
         if(_other.GetType() != this.GetType()
                 && _other.GetType() !=  "Player") {  // Another entity
             GameSystem.Instance.AddScore(10);
+            startVibrate();
             SetIsDone(true);
+            if(AudioManager.Instance.GetSFXState())
+                AudioManager.Instance.PlayAudio(R.raw.enemy_hit, 0.9f);
         }
     }
 }

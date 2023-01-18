@@ -9,8 +9,9 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
+import androidx.fragment.app.FragmentActivity;
 
-public class GamePage extends Activity {
+public class GamePage extends FragmentActivity {
 
     public static GamePage Instance = null;
 

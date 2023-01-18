@@ -2,6 +2,7 @@ package com.sdm.mgp2022;
 
 import android.app.Activity;
 import android.graphics.Canvas;
+import android.media.MediaPlayer;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +20,7 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
     private Button btn_start;
     private Button btn_options;
     private Button btn_quit;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
 
         StateManager.Instance.AddState(new Mainmenu());
 
+        mp = MediaPlayer.create(this, R.raw.select);
+
     }
 
     @Override
@@ -60,12 +64,13 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         {
             // intent --> to set to another class which another page or screen that we are launching.
             intent.setClass(this, GamePage.class);
-
+            //AudioManager.Instance.PlayAudio(R.raw.select,0.9f);
             StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
         }
 
         else if (v == btn_options)
         {
+            //AudioManager.Instance.PlayAudio(R.raw.select, 0.9f);
             intent.setClass(this, Options.class);
         }
 
@@ -73,6 +78,8 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         {
             this.finishAffinity();
         }
+
+        mp.start();
         startActivity(intent);
 
     }

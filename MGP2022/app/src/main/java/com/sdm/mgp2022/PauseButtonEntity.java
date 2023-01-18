@@ -67,9 +67,18 @@ public class PauseButtonEntity implements EntityBase {
                 if(Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius)
                         && buttonDelay >= 0.25)
                 {
+                    if(AudioManager.Instance.GetSFXState())
+                        AudioManager.Instance.PlayAudio(R.raw.select, 0.9f);
+                    if(PauseConfirmDialogAlert.isShown)
+                        return;
+
+                    PauseConfirmDialogAlert newPauseConfirm = new PauseConfirmDialogAlert();
+                    newPauseConfirm.show(GamePage.Instance.getSupportFragmentManager(), "PauseConfirm");
+                    buttonDelay = 0;
                     Paused = true;
-                    GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
+                    //GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
                 }
+
             }
         }
         else
