@@ -33,45 +33,60 @@
         android:textSize="48sp" />
 
     <Button
-        android:id="@+id/btn_start"
+        android:id="@+id/btn_mm_start"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentRight="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="170dp"
-        android:layout_marginRight="130dp"
+
+        android:layout_marginTop="218dp"
+        android:layout_marginRight="434dp"
         android:background="@drawable/button"
         android:text="Start"
         android:textColor="@color/white"
         android:textSize="18dp" />
 
     <Button
-        android:id="@+id/btn_options"
+        android:id="@+id/btn_mm_leaderboard"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentRight="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="230dp"
-        android:layout_marginRight="130dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginRight="222dp"
+        android:background="@drawable/button"
+        android:text="Leaderboard"
+        android:textColor="@color/white"
+        android:textSize="14dp" />
+
+    <Button
+        android:id="@+id/btn_mm_options"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="288dp"
+        android:layout_marginRight="434dp"
         android:background="@drawable/button"
         android:text="Options"
         android:textColor="@color/white"
         android:textSize="18dp" />
 
     <Button
-        android:id="@+id/btn_quit"
+        android:id="@+id/btn_mm_quit"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="false"
+        android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="290dp"
-        android:layout_marginRight="130dp"
+        android:layout_marginTop="289dp"
+        android:layout_marginRight="224dp"
         android:background="@drawable/button"
         android:text="Quit"
-        android:textSize="18dp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="18dp" />
 
 </RelativeLayout>

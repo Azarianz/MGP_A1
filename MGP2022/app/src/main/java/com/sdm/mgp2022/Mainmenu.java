@@ -20,6 +20,7 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
     private Button btn_start;
     private Button btn_options;
     private Button btn_quit;
+    private Button btn_leaderboard;
     MediaPlayer mp;
 
     @Override
@@ -35,13 +36,16 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
 
         setContentView(R.layout.mainmenu);
 
-        btn_start = (Button)findViewById(R.id.btn_start);
+        btn_start = (Button)findViewById(R.id.btn_mm_start);
         btn_start.setOnClickListener(this); //Set Listener to this button --> Start Button
 
-        btn_options = (Button)findViewById(R.id.btn_options);
+        btn_options = (Button)findViewById(R.id.btn_mm_options);
         btn_options.setOnClickListener(this); //Set Listener to this button --> Options Button
 
-        btn_quit = (Button)findViewById(R.id.btn_quit);
+        btn_leaderboard = (Button)findViewById(R.id.btn_mm_leaderboard);
+        btn_leaderboard.setOnClickListener(this); //Set Listener to this button --> Back Button
+
+        btn_quit = (Button)findViewById(R.id.btn_mm_quit);
         btn_quit.setOnClickListener(this); //Set Listener to this button --> Back Button
 
         StateManager.Instance.AddState(new Mainmenu());
@@ -72,6 +76,11 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         {
             //AudioManager.Instance.PlayAudio(R.raw.select, 0.9f);
             intent.setClass(this, Options.class);
+        }
+
+        else if (v == btn_leaderboard)
+        {
+            intent.setClass(this, LeaderboardPage.class);
         }
 
         else if (v == btn_quit)
