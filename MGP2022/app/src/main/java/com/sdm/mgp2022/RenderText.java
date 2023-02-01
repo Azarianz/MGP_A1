@@ -71,10 +71,11 @@ public class RenderText implements EntityBase{
         //Paint paint = new Paint();
         paint.setARGB(255, 255,255,255); // number range from 0 - 255
         paint.setStrokeWidth(200);
-        paint.setTextSize(100);
+        paint.setTextSize(60);
         paint.setTypeface(myFont);
-        _canvas.drawText("Health: " + GameSystem.Instance.GetHealth(), 30, 80, paint);
-        _canvas.drawText("Score: " + GameSystem.Instance.GetScore(), 1000, 80, paint);
+
+        _canvas.drawText("Health : " + GameSystem.Instance.GetHealth(), 30, 90, paint);
+        _canvas.drawText("Score : " + GameSystem.Instance.GetScore(), 30, 160, paint);
     }
 
     public boolean IsInit() {

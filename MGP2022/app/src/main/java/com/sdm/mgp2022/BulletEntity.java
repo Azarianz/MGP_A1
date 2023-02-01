@@ -208,14 +208,7 @@ public class BulletEntity implements EntityBase, Collidable{
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType()
                 && _other.GetType() !=  "Player") {  // Another entity
-
-            int currScore = GameSystem.Instance.GetIntFromSave("Score");
             GameSystem.Instance.AddScore(10);
-            currScore += 10;
-
-            GameSystem.Instance.SaveEditBegin();
-            GameSystem.Instance.SetIntInSave("Score", currScore);
-            GameSystem.Instance.SaveEditEnd();
 
             startVibrate();
             SetIsDone(true);

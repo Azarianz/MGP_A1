@@ -144,17 +144,13 @@ public class PlayerEntity implements EntityBase, Collidable{
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType()
         && _other.GetType() != "Bullet") {
-
-            int currScore = GameSystem.Instance.GetIntFromSave("Score");
-
             // Collided with enemy
             GameSystem.Instance.TakeDamage();
             GameSystem.Instance.AddScore(-5);
-            currScore -= 5;
 
-            GameSystem.Instance.SaveEditBegin();
-            GameSystem.Instance.SetIntInSave("Score", currScore);
-            GameSystem.Instance.SaveEditEnd();
+            //GameSystem.Instance.SaveEditBegin();
+            //GameSystem.Instance.SetIntInSave("Score", currScore);
+            //GameSystem.Instance.SaveEditEnd();
 
             startVibrate();
             if(AudioManager.Instance.GetSFXState())

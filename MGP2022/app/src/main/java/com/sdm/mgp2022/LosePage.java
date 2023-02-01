@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.widget.TextView;
 
 // Created by TanSiewLan2021
-
 public class LosePage extends Activity implements OnClickListener, StateBase {  //Using StateBase class
 
     //Define buttons
@@ -22,7 +21,7 @@ public class LosePage extends Activity implements OnClickListener, StateBase {  
     private Button btn_quit;
     MediaPlayer mp;
 
-    private boolean Paused = false;
+    private boolean Paused = GameSystem.Instance.GetIsPaused();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,25 +45,33 @@ public class LosePage extends Activity implements OnClickListener, StateBase {  
         StateManager.Instance.AddState(new Mainmenu());
         mp = MediaPlayer.create(this, R.raw.select);
 
-        // Open Dialogue Popup
-        SaveHighScoreDialogAlert newSaveHS_Alert = new SaveHighScoreDialogAlert();
-        newSaveHS_Alert.show(GamePage.Instance.getSupportFragmentManager(), "SaveHS_Alert");
-
         TextView score = (TextView)findViewById(R.id.lose_scoretext);
-        score.setText(GameSystem.Instance.GetIntFromSave("Score"));
-        Paused = true;
+        score.setText("SCORE: " + GameSystem.Instance.GetScore());
+
+        TextView hscore = (TextView)findViewById(R.id.lose_highscoretext);
+        hscore.setText("HIGHEST SCORE: " + GameSystem.Instance.GetIntFromSave("HScore"));
+
+        if(GameSystem.Instance.GetIntFromSave("Score") > GameSystem.Instance.GetIntFromSave("HScore"))
+        {
+            // Open Dialogue Popup
+            //SaveHighScoreDialogAlert newSaveHS_Alert = new SaveHighScoreDialogAlert();
+            //newSaveHS_Alert.show(GamePage.Instance.getSupportFragmentManager(), "SaveHS_Alert");
+            //Paused = true;
+        }
+
     }
 
     @Override
     //Invoke a callback event in the view
     public void onClick(View v)
     {
-        // Intent = action to be performed.
-        // Intent is an object provides runtime binding.
-        // new instance of this object intent
         if(TouchManager.Instance.HasTouch()) {
 
-            if (TouchManager.Instance.IsDown() && !Paused) {
+            if (TouchManager.Instance.IsDown() && !Paused)
+            {
+                // Intent = action to be performed.
+                // Intent is an object provides runtime binding.
+                // new instance of this object intent
                 Intent intent = new Intent();
 
                 if (v == btn_retry)
@@ -81,7 +88,6 @@ public class LosePage extends Activity implements OnClickListener, StateBase {  
 
                 mp.start();
                 startActivity(intent);
-
             }
         }
 

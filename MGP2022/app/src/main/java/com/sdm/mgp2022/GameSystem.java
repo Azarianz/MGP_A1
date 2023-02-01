@@ -10,6 +10,7 @@ import android.view.SurfaceView;
 public class GameSystem {
     public final static GameSystem Instance = new GameSystem();
     public static final String SHARED_PREF_ID = "GameSaveFile";
+    public static final String LEADERBOARD_PREF_ID = "LeaderboardFile";
 
     // Game stuff
     private boolean isPaused = false;
@@ -75,9 +76,10 @@ public class GameSystem {
         hp = 3;
         score = 0;
 
-        GameSystem.Instance.SaveEditBegin();
-        GameSystem.Instance.SetIntInSave("Score", 0);
-        GameSystem.Instance.SaveEditEnd();
+        //Live Score
+        //GameSystem.Instance.SaveEditBegin();
+        //GameSystem.Instance.SetIntInSave("Score", 0);
+        //GameSystem.Instance.SaveEditEnd();
     }
 
     public void SaveEditBegin()

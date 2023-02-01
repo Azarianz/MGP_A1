@@ -44,7 +44,8 @@
         android:layout_marginStart="340dp"
         android:layout_marginTop="178dp"
         android:fontFamily="sans-serif-light"
-        android:text="SCORE:"
+        android:text="Score: 15"
+        android:textAlignment="textEnd"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -59,7 +60,8 @@
         android:layout_marginStart="271dp"
         android:layout_marginTop="220dp"
         android:fontFamily="sans-serif-light"
-        android:text="HIGHEST SCORE:"
+        android:text="Higheest Score: 15"
+        android:textAlignment="textEnd"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold" />

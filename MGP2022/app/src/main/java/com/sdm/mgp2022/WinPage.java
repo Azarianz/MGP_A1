@@ -48,8 +48,8 @@ public class WinPage extends Activity implements OnClickListener, StateBase {  /
         mp = MediaPlayer.create(this, R.raw.select);
 
         // Open Dialogue Popup
-        SaveHighScoreDialogAlert newSaveHS_Alert = new SaveHighScoreDialogAlert();
-        newSaveHS_Alert.show(GamePage.Instance.getSupportFragmentManager(), "SaveHS_Alert");
+        //SaveHighScoreDialogAlert newSaveHS_Alert = new SaveHighScoreDialogAlert();
+        //newSaveHS_Alert.show(GamePage.Instance.getSupportFragmentManager(), "SaveHS_Alert");
 
         TextView score = (TextView)findViewById(R.id.scoreTxt);
         score.setText(GameSystem.Instance.GetScore());

@@ -19,7 +19,7 @@ import java.util.stream.LongStream;
 
 public class MainGameSceneState implements StateBase {
     private float timer = 0.0f;
-    private Joystick jstick;
+    private Joystick jstick, jstick2;
     private PlayerEntity player;
     private List<EnemyEntity> enemyList = new ArrayList<EnemyEntity>();
     private EnemyEntity enemy;
@@ -42,7 +42,6 @@ public class MainGameSceneState implements StateBase {
        //SmurfEntity.Create();
 
         player = PlayerEntity.Create();
-        jstick = Joystick.Create();
         //StarEntity.Create();
         PauseButtonEntity.Create();
         RenderText.Create(player);
@@ -50,6 +49,10 @@ public class MainGameSceneState implements StateBase {
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
+
+        jstick = Joystick.Create();     //Move Joystick
+        jstick2 = Joystick.Create(2000, 680, 2000, 680, 80, 40);    //Aim Joystick
+
         // Example to include another Renderview for Pause Button
     }
 
@@ -63,13 +66,13 @@ public class MainGameSceneState implements StateBase {
     public void Render(Canvas _canvas) {
         EntityManager.Instance.Render(_canvas);
 
-        String scoreText = String.format("SCORE : %d", GameSystem.Instance.GetIntFromSave("Score"));
+        //String scoreText = String.format("SCORE : %d", GameSystem.Instance.GetIntFromSave("Score"));
 
-        Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        paint.setTextSize(64);
+        //Paint paint = new Paint();
+        //paint.setColor(Color.WHITE);
+        //paint.setTextSize(64);
 
-        _canvas.drawText(scoreText, 10, 220, paint);
+        //_canvas.drawText(scoreText, 10, 220, paint);
     }
 
     @Override
@@ -77,21 +80,39 @@ public class MainGameSceneState implements StateBase {
 
         if(GameSystem.Instance.GetHealth() <= 0)
         {
+            int curr_score = GameSystem.Instance.GetScore();
+            GameSystem.Instance.SaveEditBegin();
+
+            if (!GameSystem.Instance.sharedPref.contains("HScore"))
+            {
+                GameSystem.Instance.SetIntInSave("HScore", curr_score);
+                Leaderboard.Instance.AddToScoreboard(curr_score);
+            }
+
+            else
+            {
+                if(curr_score >= GameSystem.Instance.GetIntFromSave("HScore"))
+                {
+                    GameSystem.Instance.SetIntInSave("HScore", curr_score);
+                    Leaderboard.Instance.AddToScoreboard(curr_score);
+                }
+            }
+
+            GameSystem.Instance.SaveEditEnd();
+
             GamePage.Instance.LoseGame();
-            GameSystem.Instance.ResetGameValues();
             player.ResetGameValues();
             spawnTimer = 0;
             shootTimer = 0;
         }
 
-        else if(GameSystem.Instance.GetScore() >= 100)
+        /*else if(GameSystem.Instance.GetScore() >= 100)
         {
             GamePage.Instance.WinGame();
-            GameSystem.Instance.ResetGameValues();
             player.ResetGameValues();
             spawnTimer = 0;
             shootTimer = 0;
-        }
+        }*/
 
         //StateManager.Instance.PrintAllStates();
         //Enemy Spawner
@@ -127,7 +148,7 @@ public class MainGameSceneState implements StateBase {
             //Log.d("timer", "second until shoot: " + shootTimer);
         }
 
-        //Joystick
+        //Joystick Movement
         if (TouchManager.Instance.IsDown())
         {
             //Example of touch on screen in the main game to trigger back to Main menu
@@ -140,6 +161,10 @@ public class MainGameSceneState implements StateBase {
             {
                 jstick.setIsPressed(true);
             }
+
+            //JSTICK2
+
+            //if(TouchManager.Instance.GetPosX() == jstick2.)
         }
         else if(TouchManager.Instance.IsMove()){
             if(jstick.getIsPressed())
@@ -152,7 +177,6 @@ public class MainGameSceneState implements StateBase {
             jstick.setIsPressed(false);
             jstick.resetActuator();
         }
-
 
         //Movement Update
         Iterator<EnemyEntity> iteratorEnemy = enemyList.iterator();

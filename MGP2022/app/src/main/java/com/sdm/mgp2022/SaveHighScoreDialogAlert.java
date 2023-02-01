@@ -16,19 +16,17 @@ public class SaveHighScoreDialogAlert extends  DialogFragment {
     {
         isShown = true;
         //Use the builder class for convenient dialog construction
-        final EditText inputTextField = new EditText(this.getContext());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Would you like to save your score?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setMessage("Enter your name")
-                                .setView(inputTextField);
+                        GameSystem.Instance.SetIsPaused(true);
+                        isShown = false;
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // User cancelled the pause

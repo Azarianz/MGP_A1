@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 public class Joystick implements EntityBase {
 
+    //Default Values
     private int outerCircleCenterPositionX = 200;
     private int outerCircleCenterPositionY = 580;
     private int innerCircleCenterPositionX = 200;
@@ -27,6 +28,26 @@ public class Joystick implements EntityBase {
 
     private boolean isDone = false;
     private boolean isInit = false;
+
+    public Joystick()
+    {
+        outerCircleCenterPositionX = 200;
+        outerCircleCenterPositionY = 680;
+        innerCircleCenterPositionX = 200;
+        innerCircleCenterPositionY = 680;
+        outerCircleRadius = 80;
+        innerCircleRadius = 40;
+    }
+
+    public Joystick(int outX, int outY, int inX,int inY, int outRad, int inRad)
+    {
+        outerCircleCenterPositionX = outX;
+        outerCircleCenterPositionY = outY;
+        innerCircleCenterPositionX = inX;
+        innerCircleCenterPositionY = inY;
+        outerCircleRadius = outRad;
+        innerCircleRadius = inRad;
+    }
 
     private void updateInnerCirclePosition() {
         innerCircleCenterPositionX = (int) (outerCircleCenterPositionX + actuatorX*outerCircleRadius);
@@ -130,6 +151,12 @@ public class Joystick implements EntityBase {
 
     public static Joystick Create() {
         Joystick result = new Joystick();
+        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_JOYSTICK);
+        return result;
+    }
+
+    public static Joystick Create(int outX, int outY, int inX,int inY, int outRad, int inRad) {
+        Joystick result = new Joystick(outX, outY, inX, inY, outRad, inRad);
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_JOYSTICK);
         return result;
     }
