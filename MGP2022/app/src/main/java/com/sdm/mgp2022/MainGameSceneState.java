@@ -217,6 +217,7 @@ public class MainGameSceneState implements StateBase {
                 jstick2.setActuator(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY());
                 //Player aim closest
                 player.SetTarget(jstick2.getActuatorX(), jstick2.getActuatorY());
+
             }
         }
         else if(TouchManager.Instance.IsUp())
@@ -258,6 +259,15 @@ public class MainGameSceneState implements StateBase {
                 }
             }
             */
+        }
+
+        if(player.GetTargetX() == 0 && player.GetTargetY() == 0)
+        {
+            player.canFire = false;
+        }
+
+        else{
+            player.canFire = true;
         }
 
         EntityManager.Instance.Update(_dt);

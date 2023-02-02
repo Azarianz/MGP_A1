@@ -24,7 +24,7 @@ public class PlayerEntity implements EntityBase, Collidable{
 
     private Vibrator _vibrator;
 
-    public boolean canFire = false;
+    public boolean canFire = true;
 
     private double targetX = 0, targetY = 0;
 
@@ -199,6 +199,6 @@ public class PlayerEntity implements EntityBase, Collidable{
         yVel = 0;
         targetX = 0;
         targetY = 0;
-        canFire = false;
+        //canFire = false;
     }
 }
