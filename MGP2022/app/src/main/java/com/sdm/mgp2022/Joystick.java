@@ -29,6 +29,9 @@ public class Joystick implements EntityBase {
     private boolean isDone = false;
     private boolean isInit = false;
 
+    private double joyLastPositionX = 0;
+    private double joyLastPositionY = 0;
+
     public Joystick()
     {
         outerCircleCenterPositionX = 200;

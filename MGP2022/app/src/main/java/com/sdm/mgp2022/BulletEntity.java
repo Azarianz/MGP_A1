@@ -21,21 +21,20 @@ public class BulletEntity implements EntityBase, Collidable{
 
     private double xVel = 0, yVel = 0;
 
-    public float xPos = 0;
+    public float xPos, yPos;
     private float xStart = 0;
-    public float yPos = 0;
     private float screenHeight = 0;
     private float speed = 0;
     private boolean isDone = false;
     private boolean isInit = false;
 
-    private int BULLET_SPEED = 10;
+    private int BULLET_SPEED = 0;
 
     public double targetX=0, targetY=0;
     double targetDist = 0, targetXDist = 0, targetYDist = 0;
     double directionX, directionY;
 
-    public float bulletLifetime = 80.0f;
+    public float bulletLifetime = 400.0f;
 
     private Vibrator _vibrator;
 
@@ -99,7 +98,7 @@ public class BulletEntity implements EntityBase, Collidable{
         // Do nothing if it is not in the main game state
         if (StateManager.Instance.GetCurrentState() != "MainGame")
             return;
-
+/*
         // =========================================================================================
         //   Update velocity of the enemy so that the velocity is in the direction of the player
         // =========================================================================================
@@ -109,11 +108,14 @@ public class BulletEntity implements EntityBase, Collidable{
 
         // Calculate (absolute) distance between enemy (this) and player
         targetDist = Math.sqrt(
-                Math.pow(targetX - xPos, 2) + Math.pow(targetY - yPos, 2));
+                Math.pow((xPos + targetX), 2) + Math.pow((yPos + targetY), 2));
 
         // Calculate direction from enemy to player
-        directionX = targetXDist/targetDist;
-        directionY = targetYDist/targetDist;
+        directionX = (targetXDist)/(targetDist);
+        directionY = (targetYDist)/(targetDist);
+
+        //xVel = directionX * BULLET_SPEED * 1.4f;
+        //yVel = directionY * BULLET_SPEED * 1.4f;
 
         // Set velocity in the direction to the player
         if(targetDist > 0) { // Avoid division by zero
@@ -122,9 +124,14 @@ public class BulletEntity implements EntityBase, Collidable{
         else
         {
             // No Target
-            SetIsDone(true);
+            //SetIsDone(true);
+            xVel = directionX * BULLET_SPEED * 1.4f;
+            yVel = directionY * BULLET_SPEED * 1.4f;
         }
 
+        // Update velocity based on actuator of joystick
+        //xVel = targetXDist * BULLET_SPEED * _dt;
+        //yVel = targetYDist * BULLET_SPEED * _dt;
         // Update position
         xPos += xVel;
         yPos += yVel;
@@ -134,11 +141,22 @@ public class BulletEntity implements EntityBase, Collidable{
             SetIsDone(true);
         }
 
-        if(xVel == targetX && yPos == targetY)
+
+        if(xPos == targetX && yPos == targetY)
         {
             SetIsDone(true);
         }
+        /*
+
+ */
+        xVel = targetX * BULLET_SPEED;
+        yVel = targetY * BULLET_SPEED;
+
+        xPos += xVel * _dt;
+        yPos += yVel * _dt;
     }
+
+
 
     @Override
     public void Render(Canvas _canvas) {

@@ -183,28 +183,46 @@ public class MainGameSceneState implements StateBase {
         {
             //Example of touch on screen in the main game to trigger back to Main menu
             //StateManager.Instance.ChangeState("Mainmenu");
-            jstick.setIsPressed(true);
+            //jstick.setIsPressed(true);
 
             //Joystick
-            if(jstick.isPressed(TouchManager.Instance.GetPosX(),
-                    TouchManager.Instance.GetPosY()))
+            if(Collision.SphereToSphere(TouchManager.Instance.GetPosX(),
+                    TouchManager.Instance.GetPosY(), 0.0f, 200, 580, 150))
             {
                 jstick.setIsPressed(true);
             }
 
-            //JSTICK2
+            /*if(jstick.isPressed(TouchManager.Instance.GetPosX(),
+                    TouchManager.Instance.GetPosY()))
+            {
+                jstick.setIsPressed(true);
+            }
+             */
 
-            //if(TouchManager.Instance.GetPosX() == jstick2.)
+            //Joystick2
+            if(Collision.SphereToSphere(TouchManager.Instance.GetPosX(),
+                    TouchManager.Instance.GetPosY(), 0.0f, 2000, 680, 100))
+            {
+                jstick2.setIsPressed(true);
+            }
         }
         else if(TouchManager.Instance.IsMove()){
             if(jstick.getIsPressed())
             {
                 jstick.setActuator(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY());
             }
+
+            if(jstick2.getIsPressed())
+            {
+                jstick2.setActuator(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY());
+                //Player aim closest
+                player.SetTarget(jstick2.getActuatorX(), jstick2.getActuatorY());
+            }
         }
         else if(TouchManager.Instance.IsUp())
         {
             jstick.setIsPressed(false);
+            jstick2.setIsPressed(false);
             jstick.resetActuator();
         }
 
@@ -218,6 +236,7 @@ public class MainGameSceneState implements StateBase {
             //Log.d("ITERATOR MOVEMENT", "PLAYER X: " + player.GetPosX() + "PLAYER Y: " + player.GetPosY());
             //Log.d("ITERATOR MOVEMENT", "ENEMYIT XPOS: " + enemyIT.GetPosX() + "ENEMYIT YPOS: " + enemyIT.GetPosY());
 
+            /*
             if(enemyIT.GetDistanceFromPlayer() < currentTarget)
             {
                 currentTarget = enemyIT.GetDistanceFromPlayer();
@@ -238,7 +257,7 @@ public class MainGameSceneState implements StateBase {
                     player.canFire = false;
                 }
             }
-
+            */
         }
 
         EntityManager.Instance.Update(_dt);
