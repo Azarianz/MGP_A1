@@ -31,6 +31,7 @@ public class MainGameSceneState implements StateBase {
 
     double currentTarget = 9999;
     int ScreenWidth, ScreenHeight;
+    int ScreenWScale, ScreenHScale;
 
     @Override
     public String GetName() {
@@ -52,8 +53,10 @@ public class MainGameSceneState implements StateBase {
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
 
-        jstick = Joystick.Create();     //Move Joystick
-        jstick2 = Joystick.Create(2000, 680, 2000, 680, 80, 40);    //Aim Joystick
+        jstick = Joystick.Create((ScreenWidth / 5) , (ScreenHeight / 4) * 3, (ScreenWidth / 5), (ScreenHeight / 4) * 3, 90, 40);     //Move Joystick
+        jstick2 = Joystick.Create((ScreenWidth / 5) * 4 , (ScreenHeight / 4) * 3, (ScreenWidth / 5) * 4 , (ScreenHeight / 4) * 3, 90, 40);    //Aim Joystick
+        ScreenWScale = (ScreenWidth / 5);
+        ScreenHScale = (ScreenHeight / 4);
 
         // Example to include another Renderview for Pause Button
     }
@@ -187,7 +190,7 @@ public class MainGameSceneState implements StateBase {
 
             //Joystick
             if(Collision.SphereToSphere(TouchManager.Instance.GetPosX(),
-                    TouchManager.Instance.GetPosY(), 0.0f, 200, 580, 150))
+                    TouchManager.Instance.GetPosY(), 0.0f, ScreenWScale, ScreenHScale * 3, 150))
             {
                 jstick.setIsPressed(true);
             }
@@ -201,7 +204,7 @@ public class MainGameSceneState implements StateBase {
 
             //Joystick2
             if(Collision.SphereToSphere(TouchManager.Instance.GetPosX(),
-                    TouchManager.Instance.GetPosY(), 0.0f, 2000, 680, 100))
+                    TouchManager.Instance.GetPosY(), 0.0f, ScreenWScale * 4, ScreenHScale * 3, 150))
             {
                 jstick2.setIsPressed(true);
             }
