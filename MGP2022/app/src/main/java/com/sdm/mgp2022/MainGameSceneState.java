@@ -40,9 +40,8 @@ public class MainGameSceneState implements StateBase {
 
     @Override
     public void OnEnter(SurfaceView _view) {
-
         RenderBackground.Create();
-       //SmurfEntity.Create();
+        //SmurfEntity.Create();
 
         player = PlayerEntity.Create();
         //StarEntity.Create();
@@ -58,7 +57,9 @@ public class MainGameSceneState implements StateBase {
         ScreenWScale = (ScreenWidth / 5);
         ScreenHScale = (ScreenHeight / 4);
 
-        // Example to include another Renderview for Pause Button
+        // Init
+        spawnTimer = spawnInterval;
+        shootTimer = player.shootInterval;
     }
 
     @Override
@@ -135,8 +136,8 @@ public class MainGameSceneState implements StateBase {
 
             GamePage.Instance.LoseGame();
             player.ResetGameValues();
-            spawnTimer = 0;
-            shootTimer = 0;
+            spawnTimer = spawnInterval;
+            shootTimer = player.shootInterval;
         }
 
         /*else if(GameSystem.Instance.GetScore() >= 100)

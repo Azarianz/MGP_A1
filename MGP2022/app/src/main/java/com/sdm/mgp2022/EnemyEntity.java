@@ -11,15 +11,20 @@ import java.util.Random;
 public class EnemyEntity implements EntityBase, Collidable{
 
     private double MAX_SPEED = 6.0f;  //30 = framerate
-    private Bitmap bmp = null;
+    private Bitmap bmp = null, bmp2 = null;
     private boolean isDone = false;
     public double xPos = 0, yPos = 0;
     private double xVel = 0, yVel = 0;
     private Sprite spriteSheet;
+    private Sprite explosionSheet;
     private boolean isInit = false;
 
     double playerX = 0, playerY = 0, playerDist = 0, playerXDist =0, playerYDist = 0;
     double directionX, directionY;
+
+    public int delayTime = 7;   //for explosion
+
+    private boolean exploded = false;
 
     public boolean IsDone() {
         return isDone;
@@ -30,6 +35,7 @@ public class EnemyEntity implements EntityBase, Collidable{
     }
 
     public void Init(SurfaceView _view) {
+        delayTime = 7;
         //indicate what image to use
         //load the image
         Random ran = new Random();
@@ -65,9 +71,10 @@ public class EnemyEntity implements EntityBase, Collidable{
         }
 
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.flystone);
+        bmp2 = BitmapFactory.decodeResource(_view.getResources(), R.drawable.explosion_sprites);
 
         spriteSheet = new Sprite(bmp, 1, 5, 16);
-
+        explosionSheet = new Sprite(bmp2, 1, 7, 16);
         // spriteSheet = new Sprite(bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.smurf_sprite), 4, 4, 16);
 
         isInit = true;
@@ -77,6 +84,7 @@ public class EnemyEntity implements EntityBase, Collidable{
         if(GameSystem.Instance.GetIsPaused())
             return;
         spriteSheet.Update(_dt);
+        explosionSheet.Update(_dt);
 
         // =========================================================================================
         //   Update velocity of the enemy so that the velocity is in the direction of the player
@@ -104,8 +112,20 @@ public class EnemyEntity implements EntityBase, Collidable{
         }
 
         // Update position
-        xPos += xVel;
-        yPos += yVel;
+        if(!exploded)
+        {
+            xPos += xVel;
+            yPos += yVel;
+        }
+
+        if(exploded && delayTime > 0){
+            delayTime--;
+        }
+        else if(delayTime <= 0)
+        {
+            SetIsDone(true);
+            Log.d("Test", "EXPLODED");
+        }
     }
 
     public void MoveToTarget(double xtar, double ytar)
@@ -116,8 +136,16 @@ public class EnemyEntity implements EntityBase, Collidable{
         //Log.d("Enemy Position", "XPOS: " + this.xPos + "YPOS: " + this.yPos);
     }
 
-    public void Render(Canvas _canvas) {
-        spriteSheet.Render(_canvas, (int)xPos, (int)yPos);
+    public void Render(Canvas _canvas)
+    {
+        if(exploded)
+        {
+            explosionSheet.Render(_canvas, (int)xPos, (int)yPos);
+        }
+        else{
+            spriteSheet.Render(_canvas, (int)xPos, (int)yPos);
+        }
+
     }
 
     public boolean IsInit() {
@@ -161,7 +189,7 @@ public class EnemyEntity implements EntityBase, Collidable{
 
     @Override
     public float GetRadius() {
-        return 10;
+        return 2;
     }
 
     @Override
@@ -170,7 +198,7 @@ public class EnemyEntity implements EntityBase, Collidable{
         && _other.GetType() != "Shield"
         && _other.GetType() != "Health")
         {
-            SetIsDone(true);
+            exploded = true;
         }
     }
 }

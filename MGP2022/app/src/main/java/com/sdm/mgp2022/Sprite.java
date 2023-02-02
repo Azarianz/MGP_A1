@@ -70,4 +70,17 @@ public class Sprite {
             timeAcc = 0.0f;
         }
     }
+
+    public void UpdateNotLoop(float _dt)
+    {
+        // Animation
+        timeAcc += _dt;
+        if(timeAcc > timePerFrame)
+        {
+            ++currentFrame;
+            if(currentFrame >= endFrame)
+                currentFrame = currentFrame;
+            timeAcc = 0.0f;
+        }
+    }
 }

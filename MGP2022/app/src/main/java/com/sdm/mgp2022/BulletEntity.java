@@ -28,7 +28,7 @@ public class BulletEntity implements EntityBase, Collidable{
     private boolean isDone = false;
     private boolean isInit = false;
 
-    private int BULLET_SPEED = 200;
+    private int BULLET_SPEED = 300;
 
     public double targetX=0, targetY=0;
     double targetDist = 0, targetXDist = 0, targetYDist = 0;

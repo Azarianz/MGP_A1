@@ -16,11 +16,16 @@ public class PlayerEntity implements EntityBase, Collidable{
     private double MAX_SPEED = 6.0f;
     private Bitmap bmp = null;
     private Bitmap bmp1 = null;
+
     private boolean isDone = false;
     private double xPos = 0, yPos = 0;
     private double xVel = 0, yVel = 0;
     private Sprite spriteSheet;
     private boolean isInit = false;
+
+    private Sprite explosionSheet;
+    public int delayTime = 7;   //for explosion
+    private boolean exploded = false;
 
     private Vibrator _vibrator;
 
@@ -28,7 +33,10 @@ public class PlayerEntity implements EntityBase, Collidable{
 
     private double targetX = 0, targetY = 0;
 
-    public float shootInterval = 80.0f;
+    public float shootInterval = 60.0f;
+
+    public boolean gotHit = false;
+    public int iframecounter, iframestart = 20;
 
     int ScreenWidth, ScreenHeight;
 
@@ -41,6 +49,9 @@ public class PlayerEntity implements EntityBase, Collidable{
     }
 
     public void Init(SurfaceView _view) {
+        iframecounter = iframestart;
+        shootInterval = 60.0f;
+        gotHit = false;
         //indicate what image to use
         //load the image
 
@@ -65,6 +76,15 @@ public class PlayerEntity implements EntityBase, Collidable{
             return;
         spriteSheet.Update(_dt);
 
+        if(gotHit && iframecounter > 0)
+        {
+            iframecounter--;
+        }
+        else if(iframecounter <= 0)
+        {
+            iframecounter = iframestart;
+            gotHit = false;
+        }
         // Addon codes provided on week 6 slides
     }
 
@@ -88,7 +108,10 @@ public class PlayerEntity implements EntityBase, Collidable{
             transform.postTranslate((int)xPos- bmp1.getWidth() * 0.5f, (int)yPos- bmp1.getHeight() * 0.5f);
             _canvas.drawBitmap(bmp1, transform, null);
         }
-        spriteSheet.Render(_canvas, (int)xPos, (int)yPos);
+        if(iframecounter % 2 == 0)
+        {
+            spriteSheet.Render(_canvas, (int)xPos, (int)yPos);
+        }
     }
 
     public boolean IsInit() {
@@ -155,10 +178,11 @@ public class PlayerEntity implements EntityBase, Collidable{
                 && _other.GetType() != "Shield"
                 && _other.GetType() != "Health")
         {
-            if(!GameSystem.Instance.shieldActivated)
+            if(!GameSystem.Instance.shieldActivated && gotHit != true)
             {
                 // Collided with enemy
                 GameSystem.Instance.TakeDamage();
+                gotHit = true;
                 if(GameSystem.Instance.GetScore() > 0)
                     GameSystem.Instance.AddScore(-5);
                 //currScore -= 5;
