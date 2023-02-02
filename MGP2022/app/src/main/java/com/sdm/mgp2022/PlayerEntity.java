@@ -45,7 +45,7 @@ public class PlayerEntity implements EntityBase, Collidable{
         //load the image
 
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.saucer);
-        bmp1 = BitmapFactory.decodeResource(_view.getResources(), R.drawable.helpb);
+        bmp1 = BitmapFactory.decodeResource(_view.getResources(), R.drawable.bubble_transparent);
         spriteSheet = new Sprite(bmp, 1, 4, 16);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
