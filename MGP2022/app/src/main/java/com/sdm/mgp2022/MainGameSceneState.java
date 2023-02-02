@@ -27,6 +27,8 @@ public class MainGameSceneState implements StateBase {
     float spawnTimer = 0, spawnInterval = 100;
     float shootTimer;
 
+    float shieldTimer = 100, shieldEndInterval = 100;
+
     double currentTarget = 9999;
     int ScreenWidth, ScreenHeight;
 
@@ -77,6 +79,34 @@ public class MainGameSceneState implements StateBase {
 
     @Override
     public void Update(float _dt) {
+
+        if(GameSystem.Instance.enemyCounter >=5 && !GameSystem.Instance.powerUpExist)
+        {
+            Random num = new Random();
+
+            int newNum = num.nextInt(2);
+
+            if(newNum == 0)
+            {
+                ShieldEntity.Create(GameSystem.Instance.xPos, GameSystem.Instance.yPos);
+            }
+            else if (newNum == 1)
+            {
+                HealthEntity.Create(GameSystem.Instance.xPos, GameSystem.Instance.yPos);
+            }
+            GameSystem.Instance.powerUpExist = true;
+            GameSystem.Instance.enemyCounter = 0;
+        }
+        if(shieldTimer <= 0 && GameSystem.Instance.shieldActivated && !GameSystem.Instance.GetIsPaused())
+        {
+            shieldTimer += shieldEndInterval;
+            GameSystem.Instance.shieldActivated = false;
+        }
+        else
+        if(!GameSystem.Instance.GetIsPaused() && GameSystem.Instance.shieldActivated)
+        {
+            shieldTimer--;
+        }
 
         if(GameSystem.Instance.GetHealth() <= 0)
         {

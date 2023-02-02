@@ -166,7 +166,9 @@ public class EnemyEntity implements EntityBase, Collidable{
 
     @Override
     public void OnHit(Collidable _other) {
-        if(_other.GetType() != this.GetType())
+        if(_other.GetType() != this.GetType()
+        && _other.GetType() != "Shield"
+        && _other.GetType() != "Health")
         {
             SetIsDone(true);
         }

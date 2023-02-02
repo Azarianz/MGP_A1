@@ -207,8 +207,18 @@ public class BulletEntity implements EntityBase, Collidable{
     @Override
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType()
-                && _other.GetType() !=  "Player") {  // Another entity
+            && _other.GetType() !=  "Player"
+            && _other.GetType() != "Shield"
+            && _other.GetType() != "Health")
+        {  // Another entity
             GameSystem.Instance.AddScore(10);
+
+            if(!GameSystem.Instance.powerUpExist)
+            {
+                GameSystem.Instance.enemyCounter++;
+                GameSystem.Instance.xPos = (int)_other.GetPosX();
+                GameSystem.Instance.yPos = (int)_other.GetPosY();
+            }
 
             startVibrate();
             SetIsDone(true);

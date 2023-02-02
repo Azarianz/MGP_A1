@@ -64,5 +64,12 @@ public class GamePage extends FragmentActivity {
         StateManager.Instance.ChangeState("WinPage");
         startActivity(intent);
     }
+
+    public void QuitGame()
+    {
+        Intent intent = new Intent(GamePage.this, Mainmenu.class);
+        StateManager.Instance.ChangeState("MainMenu");;
+        startActivity(intent);
+    }
 }
 

@@ -1,5 +1,6 @@
 package com.sdm.mgp2022;
 
+import android.graphics.Matrix;
 import android.os.Build;
 import android.os.Vibrator;
 import android.os.VibrationEffect;
@@ -14,6 +15,7 @@ public class PlayerEntity implements EntityBase, Collidable{
 
     private double MAX_SPEED = 6.0f;
     private Bitmap bmp = null;
+    private Bitmap bmp1 = null;
     private boolean isDone = false;
     private double xPos = 0, yPos = 0;
     private double xVel = 0, yVel = 0;
@@ -43,7 +45,7 @@ public class PlayerEntity implements EntityBase, Collidable{
         //load the image
 
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.saucer);
-
+        bmp1 = BitmapFactory.decodeResource(_view.getResources(), R.drawable.helpb);
         spriteSheet = new Sprite(bmp, 1, 4, 16);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
@@ -80,6 +82,12 @@ public class PlayerEntity implements EntityBase, Collidable{
     }
 
     public void Render(Canvas _canvas) {
+        if(GameSystem.Instance.shieldActivated)
+        {
+            Matrix transform = new Matrix();
+            transform.postTranslate((int)xPos- bmp1.getWidth() * 0.5f, (int)yPos- bmp1.getHeight() * 0.5f);
+            _canvas.drawBitmap(bmp1, transform, null);
+        }
         spriteSheet.Render(_canvas, (int)xPos, (int)yPos);
     }
 
@@ -143,10 +151,17 @@ public class PlayerEntity implements EntityBase, Collidable{
     @Override
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType()
-        && _other.GetType() != "Bullet") {
-            // Collided with enemy
-            GameSystem.Instance.TakeDamage();
-            GameSystem.Instance.AddScore(-5);
+                && _other.GetType() != "Bullet"
+                && _other.GetType() != "Shield"
+                && _other.GetType() != "Health")
+        {
+            if(!GameSystem.Instance.shieldActivated)
+            {
+                // Collided with enemy
+                GameSystem.Instance.TakeDamage();
+                GameSystem.Instance.AddScore(-5);
+                //currScore -= 5;
+            }
 
             //GameSystem.Instance.SaveEditBegin();
             //GameSystem.Instance.SetIntInSave("Score", currScore);

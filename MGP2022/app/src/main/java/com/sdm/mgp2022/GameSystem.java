@@ -17,6 +17,13 @@ public class GameSystem {
     SharedPreferences sharedPref = null;
     SharedPreferences.Editor editor = null;
 
+    public boolean shieldExist = false;
+    public boolean healthExist = false;
+    public boolean powerUpExist = false;
+    public int enemyCounter = 0;
+    public int xPos = 0, yPos = 0;
+    public boolean shieldActivated = false;
+
     private int hp = 3;
     private int score = 0;
 
@@ -63,6 +70,11 @@ public class GameSystem {
     {
         return hp;
     }
+
+    public void RestoreHealth(){
+        if(hp < 3)
+            hp +=1;
+    };
 
     public void AddScore(int val)
     {
