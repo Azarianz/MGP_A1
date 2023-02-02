@@ -159,7 +159,8 @@ public class PlayerEntity implements EntityBase, Collidable{
             {
                 // Collided with enemy
                 GameSystem.Instance.TakeDamage();
-                GameSystem.Instance.AddScore(-5);
+                if(GameSystem.Instance.GetScore() > 0)
+                    GameSystem.Instance.AddScore(-5);
                 //currScore -= 5;
             }
 
