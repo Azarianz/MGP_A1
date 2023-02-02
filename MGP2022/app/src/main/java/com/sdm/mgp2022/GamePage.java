@@ -29,8 +29,10 @@ public class GamePage extends FragmentActivity {
 
         setContentView(new GameView(this)); // Surfaceview = GameView
         mp = MediaPlayer.create(this, R.raw.bg_music);
-        if(AudioManager.Instance.GetMusicState())
+        if(AudioManager.Instance.GetMusicState()) {
             mp.start();
+            mp.setLooping(true);
+        }
     }
 
     @Override

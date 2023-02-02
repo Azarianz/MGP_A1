@@ -42,7 +42,7 @@ public class LosePage extends Activity implements OnClickListener, StateBase {  
         btn_quit = (Button)findViewById(R.id.btn_lose_quit);
         btn_quit.setOnClickListener(this); //Set Listener to this button --> Back Button
 
-        StateManager.Instance.AddState(new Mainmenu());
+        StateManager.Instance.AddState(new LosePage());
         mp = MediaPlayer.create(this, R.raw.select);
 
         TextView score = (TextView)findViewById(R.id.lose_scoretext);
@@ -65,31 +65,27 @@ public class LosePage extends Activity implements OnClickListener, StateBase {  
     //Invoke a callback event in the view
     public void onClick(View v)
     {
-        if(TouchManager.Instance.HasTouch()) {
+        // Intent = action to be performed.
+        // Intent is an object provides runtime binding.
+        // new instance of this object intent
 
-            if (TouchManager.Instance.IsDown() && !Paused)
-            {
-                // Intent = action to be performed.
-                // Intent is an object provides runtime binding.
-                // new instance of this object intent
-                Intent intent = new Intent();
+        Intent intent = new Intent();
 
-                if (v == btn_retry)
-                {
-                    // intent --> to set to another class which another page or screen that we are launching.
-                    intent.setClass(LosePage.this, GamePage.class);
-                    StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
-                }
-
-                else if (v == btn_quit)
-                {
-                    this.finishAffinity();
-                }
-
-                mp.start();
-                startActivity(intent);
-            }
+        if (v == btn_retry)
+        {
+            // intent --> to set to another class which another page or screen that we are launching.
+            intent.setClass(this, GamePage.class);
+            //AudioManager.Instance.PlayAudio(R.raw.select,0.9f);
+            StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
         }
+
+        else if (v == btn_quit)
+        {
+            this.finishAffinity();
+        }
+
+        mp.start();
+        startActivity(intent);
 
     }
 
