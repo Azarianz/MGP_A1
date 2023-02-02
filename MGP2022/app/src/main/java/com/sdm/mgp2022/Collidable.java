@@ -5,7 +5,7 @@ package com.sdm.mgp2022;
 public interface Collidable {
     String GetType();
 
-    float GetPosX();
+        float GetPosX();
     float GetPosY();
     float GetRadius();
 
